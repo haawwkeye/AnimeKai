@@ -11,7 +11,7 @@
     "quality": "1080p",
     "baseUrl": "https://animekai.to",
     "searchBaseUrl": "https://animekai.to/browser?keyword=%s",
-    "scriptUrl": "https://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@raw.githubusercontent.com/50n50/sources/refs/heads/main/animekai/animekaiHardSub.js",
+    "scriptUrl": "https://raw.githubusercontent.com/50n50/sources/refs/heads/main/animekai/animekaiHardSub.js",
     "asyncJS": true,
     "type": "anime"
 }
