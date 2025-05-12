@@ -2,12 +2,28 @@
 /////////////////////////////       Main Functions          //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
+function fetchv3(url, options={}) {
+    return fetch(url, options).then((response => {
+        console.log(response) // Log all responses so I can debug
+        
+        if (!response.ok)
+            throw new Error(`Network response was not ok: ${response.statusText} (${response.status})`);
+        return response
+    }
+    )).catch((error => {
+        throw console.error("Fetch error:", error),
+        showMessage("Fetch Error", "error", error.message),
+        error
+    }
+    ))
+}
+
 async function searchResults(keyword) {
     try {
 
         const encodedKeyword = encodeURIComponent(keyword);
         const searchUrl = `https://animekai.to/browser?keyword=${encodedKeyword}`;
-        const response = await fetchv2(searchUrl);
+        const response = await fetchv3(searchUrl);
         const responseText = await response.text();
 
         const results = [];
@@ -55,7 +71,7 @@ async function extractDetails(url) {
     try {
 
         const fetchUrl = `${url}`;
-        const response = await fetchv2(fetchUrl);
+        const response = await fetchv3(fetchUrl);
         const responseText = await response.text();
 
 
@@ -91,7 +107,7 @@ async function extractEpisodes(url) {
     try {
 
         const fetchUrlForId = `${url}`;
-        const repsonse = await fetchv2(fetchUrlForId);
+        const repsonse = await fetchv3(fetchUrlForId);
         const responseTextForId = await repsonse.text();
 
         const kaiCodexContent = await loadKaiCodex();
@@ -104,7 +120,7 @@ async function extractEpisodes(url) {
         const urlFetchToken = KAICODEX.enc(aniId);
 
         const fetchUrlListApi = `https://animekai.to/ajax/episodes/list?ani_id=${aniId}&_=${urlFetchToken}`;
-        const responseTextListApi = await fetchv2(fetchUrlListApi);
+        const responseTextListApi = await fetchv3(fetchUrlListApi);
         const data = await responseTextListApi.json();
 
         let htmlContentListApi = "";
@@ -140,7 +156,7 @@ async function extractEpisodes(url) {
 async function extractStreamUrl(url) {
     try {
         const fetchUrl = `${url}`;
-        const reponse = await fetchv2(fetchUrl);
+        const reponse = await fetchv3(fetchUrl);
         const text = await reponse.text();
         const cleanedHtml = cleanJsonHtml(text);
 
@@ -184,7 +200,7 @@ async function extractStreamUrl(url) {
                 // https://animekai.to/ajax/links/view?id=dIS48a6p6A&_=UVpJN001ckY4cHh4R3I4QVJWM2RqTFdCeFQ
                 fetchUrlServerApi = `https://animekai.to/ajax/links/view?id=${dataLid}&_=${dataLidToken}`;
 
-                const responseTextServerApi = await fetchv2(fetchUrlServerApi);
+                const responseTextServerApi = await fetchv3(fetchUrlServerApi);
                 const dataServerApi = await responseTextServerApi.json();
 
                 KaiMegaUrlJson = KAICODEX.dec(dataServerApi.result);
@@ -193,7 +209,7 @@ async function extractStreamUrl(url) {
                 megaMediaUrl = megaEmbeddedUrl.replace("/e/", "/media/");
 
                 // Fetch the media url
-                const mediaUrl = await fetchv2(megaMediaUrl);
+                const mediaUrl = await fetchv3(megaMediaUrl);
                 const mediaJson = await mediaUrl.json();
 
                 streamUrlJson = mediaJson.result;
@@ -250,7 +266,7 @@ function cleanJsonHtml(jsonHtml) {
 async function loadKaiCodex() {
     try {
         const url = 'https://raw.githubusercontent.com/amarullz/kaicodex/refs/heads/main/generated/kai_codex.js';
-        const response = await fetchv2(url);
+        const response = await fetchv3(url);
         const scriptText = await response.text();
         return scriptText;
     } catch (error) {
