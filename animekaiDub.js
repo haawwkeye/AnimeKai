@@ -2,7 +2,7 @@
 /////////////////////////////       Main Functions          //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-function fetchv3(url, options={}) {
+async function fetchv3(url, options={}) {
     return fetch(url, options).then((response => {
         console.log(response) // Log all responses so I can debug
         
@@ -14,8 +14,7 @@ function fetchv3(url, options={}) {
         throw console.error("Fetch error:", error),
         showMessage("Fetch Error", "error", error.message),
         error
-    }
-    ))
+    }))
 }
 
 async function searchResults(keyword) {
