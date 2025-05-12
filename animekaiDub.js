@@ -5,7 +5,8 @@
 function fetchv3(url, options = {}) {
 	return fetch(url, options)
 		.then((response) => {
-			console.log("Response:", response);
+			console.log("Response:");
+			console.log(response);
 
 			if (typeof response === "string") {
 				return {
