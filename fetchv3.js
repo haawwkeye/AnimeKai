@@ -4,6 +4,8 @@
 function fetchv3(url, options = {}) {
 	return fetch(url, options)
 		.then((response) => {
+			console.log("Response:", response);
+
 			if (typeof response === "string") {
 				return {
 					text: () => response,
