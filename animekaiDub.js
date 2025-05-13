@@ -220,6 +220,9 @@ async function extractStreamUrl(url) {
 				dataLid = serverMatch[1];
 				dataLidToken = KAICODEX.enc(dataLid);
 
+				// TODO: Fix this ServerAPI sending an 403 response (Same for sub just doing dub and then copy pasting code)
+				// Hopefully this will fix it just not looking into it rn
+				// besides that I want to make a version that's for BOTH sub and dub later
 				// https://animekai.to/ajax/links/view?id=dIS48a6p6A&_=UVpJN001ckY4cHh4R3I4QVJWM2RqTFdCeFQ
 				fetchUrlServerApi = `https://animekai.to/ajax/links/view?id=${dataLid}&_=${dataLidToken}`;
 
