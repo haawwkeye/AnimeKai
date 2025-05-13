@@ -5,7 +5,7 @@
 const StreamType = "dub";
 
 async function GetUtils() {
-	if (IsAKULoaded === undefined) {
+	if (this.IsAKULoaded === undefined) {
 		try {
 			const url =
 				"https://raw.githubusercontent.com/haawwkeye/AnimeKai/refs/heads/main/utils.js";
