@@ -321,7 +321,7 @@ async function loadKaiCodex() {
 	try {
 		const url =
 			"https://raw.githubusercontent.com/amarullz/kaicodex/refs/heads/main/generated/kai_codex.js";
-		const response = await fetchv2(url); // Use fetchv2 because we don't need logging for this...
+		const response = await fetchv3(url);
 		const scriptText = await response.text();
 		return scriptText;
 	} catch (error) {
