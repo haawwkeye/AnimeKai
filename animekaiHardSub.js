@@ -2,10 +2,10 @@
 /////////////////////////////       Main Functions          //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-const StreamType = "sub";
+this.StreamType = "sub";
 
 async function GetUtils() {
-	if (IsAKULoaded === undefined) {
+	if (typeof IsAKULoaded === "undefined") {
 		try {
 			const url =
 				"https://raw.githubusercontent.com/haawwkeye/AnimeKai/refs/heads/main/utils.js";
