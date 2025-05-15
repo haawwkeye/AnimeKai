@@ -53,10 +53,16 @@ async function Setup() {
 	if (typeof HasSetupFinished !== "undefined") return;
 
 	let JQ_Res = await fetchv3(
-		"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+		"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js",
+		{
+			DisableDebug: true,
+		}
 	);
 	let bundle_Res = await fetchv3(
-		"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/modified_bundle.js"
+		"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/modified_bundle.js",
+		{
+			DisableDebug: true,
+		}
 	);
 
 	const JQScr = `${JQ_Res.text()}\nthis.JQLoaded = true;`;
