@@ -55,15 +55,15 @@ async function Setup() {
 	let JQ_Res = await fetchv3(
 		"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
 	);
-	JQ_Res = `${JQ_Res}\nthis.JQLoaded = true;`;
-
 	let bundle_Res = await fetchv3(
 		"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/modified_bundle.js"
 	);
-	bundle_Res = `${bundle_Res}\nthis.BundleLoaded = true;`;
 
-	(0, eval)(JQ_Res.text());
-	(0, eval)(bundle_Res.text());
+	const JQScr = `${JQ_Res.text()}\nthis.JQLoaded = true;`;
+	const bundleScr = `${bundle_Res.text()}\nthis.BundleLoaded = true;`;
+
+	(0, eval)(JQScr);
+	(0, eval)(bundleScr);
 
 	while (typeof JQLoaded === undefined || typeof BundleLoaded === undefined) {
 		await new Promise((resolve) => setTimeout(resolve, 100));
