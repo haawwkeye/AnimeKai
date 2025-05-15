@@ -65,7 +65,8 @@ script.onload = function () {
 let BundleLoaded = false;
 
 var script = document.createElement("script");
-script.src = "modified_bundle.js";
+script.src =
+	"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/modified_bundle.js";
 script.type = "text/javascript";
 document.head.appendChild(script);
 script.onload = function () {
@@ -408,7 +409,7 @@ async function loadKaiCodex() {
 
 	try {
 		const res = await fetchv3(
-			"https://raw.githubusercontent.com/haawwkeye/AnimeKai/kaicodex/main/generated/keys.json"
+			"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/kaicodex/generated/keys.json"
 		);
 		const responseText = await res.text();
 		var keys = JSON.parse(responseText);
