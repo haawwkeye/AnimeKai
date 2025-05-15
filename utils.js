@@ -49,29 +49,21 @@ function fetchv3(url, options = {}) {
 		});
 }
 
-let JQLoaded = false;
+this.JQLoaded = false;
+this.BundleLoaded = false;
 
-var script = document.createElement("script");
-script.src =
-	"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js";
-script.type = "text/javascript";
-document.head.appendChild(script);
-script.onload = function () {
-	JQLoaded = true;
-	window.__$ =
-		"ZZYdbXagjEpeaR4SF5q7C4ViIh-6IBnxB3hshWTR2k8-ZaFMdAJx0xzxNjZL21y9xn2Z7m1V_jIQEWMmAM8Zb0uM9Se8Ur4SonJLdacBah4Y";
-};
+let JQ_Res = await fetchv3(
+	"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+);
+JQ_Res = `${JQ_Res}\nthis.JQLoaded = true;`;
 
-let BundleLoaded = false;
+let bundle_Res = await fetchv3(
+	"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/modified_bundle.js"
+);
+bundle_Res = `${bundle_Res}\nthis.BundleLoaded = true;`;
 
-var script = document.createElement("script");
-script.src =
-	"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/modified_bundle.js";
-script.type = "text/javascript";
-document.head.appendChild(script);
-script.onload = function () {
-	BundleLoaded = true;
-};
+(0, eval)(JQ_Res.text());
+(0, eval)(bundle_Res.text());
 
 /*
 o.$.ajaxSetup({
