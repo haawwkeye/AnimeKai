@@ -49,21 +49,30 @@ function fetchv3(url, options = {}) {
 		});
 }
 
-this.JQLoaded = false;
-this.BundleLoaded = false;
+async function Setup() {
+	if (typeof HasSetupFinished !== "undefined") return;
 
-let JQ_Res = await fetchv3(
-	"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
-);
-JQ_Res = `${JQ_Res}\nthis.JQLoaded = true;`;
+	let JQ_Res = await fetchv3(
+		"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+	);
+	JQ_Res = `${JQ_Res}\nthis.JQLoaded = true;`;
 
-let bundle_Res = await fetchv3(
-	"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/modified_bundle.js"
-);
-bundle_Res = `${bundle_Res}\nthis.BundleLoaded = true;`;
+	let bundle_Res = await fetchv3(
+		"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/modified_bundle.js"
+	);
+	bundle_Res = `${bundle_Res}\nthis.BundleLoaded = true;`;
 
-(0, eval)(JQ_Res.text());
-(0, eval)(bundle_Res.text());
+	(0, eval)(JQ_Res.text());
+	(0, eval)(bundle_Res.text());
+
+	while (typeof JQLoaded === undefined || typeof BundleLoaded === undefined) {
+		await new Promise((resolve) => setTimeout(resolve, 100));
+	}
+
+	this.HasSetupFinished = true;
+
+	return true;
+}
 
 /*
 o.$.ajaxSetup({
@@ -86,6 +95,7 @@ o.$.ajaxSetup({
 const RegExp = /^(strict)?(.*?)$/;
 
 async function searchResults(keyword) {
+	await Setup();
 	try {
 		const encodedKeyword = encodeURIComponent(keyword);
 		const searchUrl = `https://animekai.to/browser?keyword=${encodedKeyword}`;
@@ -132,6 +142,7 @@ async function searchResults(keyword) {
 }
 
 async function extractDetails(url) {
+	await Setup();
 	try {
 		const fetchUrl = `${url}`;
 		const response = await fetchv3(fetchUrl);
@@ -170,6 +181,7 @@ async function extractDetails(url) {
 }
 
 async function extractEpisodes(url) {
+	await Setup();
 	try {
 		const fetchUrlForId = `${url}`;
 		const repsonse = await fetchv3(fetchUrlForId);
@@ -249,6 +261,7 @@ async function extractEpisodes(url) {
 }
 
 async function extractStreamUrl(url, streamType) {
+	await Setup();
 	try {
 		const fetchUrl = `${url}`;
 		const reponse = await fetchv3(fetchUrl);
@@ -397,6 +410,7 @@ function cleanJsonHtml(jsonHtml) {
 
 // Credits to @AnimeTV Project for the KAICODEX
 async function loadKaiCodex() {
+	await Setup();
 	if (typeof KAICODEX !== "undefined") return KAICODEX;
 
 	try {

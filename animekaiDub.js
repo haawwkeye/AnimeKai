@@ -53,6 +53,10 @@ async function GetUtils() {
 		}
 	}
 
+	while (typeof IsAKULoaded === undefined) {
+		await new Promise((resolve) => setTimeout(resolve, 100));
+	}
+
 	return IsAKULoaded;
 }
 
