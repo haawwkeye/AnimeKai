@@ -49,6 +49,49 @@ function fetchv3(url, options = {}) {
 		});
 }
 
+let JQLoaded = false;
+
+var script = document.createElement("script");
+script.src =
+	"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js";
+script.type = "text/javascript";
+document.head.appendChild(script);
+script.onload = function () {
+	JQLoaded = true;
+	window.__$ =
+		"ZZYdbXagjEpeaR4SF5q7C4ViIh-6IBnxB3hshWTR2k8-ZaFMdAJx0xzxNjZL21y9xn2Z7m1V_jIQEWMmAM8Zb0uM9Se8Ur4SonJLdacBah4Y";
+};
+
+let BundleLoaded = false;
+
+var script = document.createElement("script");
+script.src = "modified_bundle.js";
+script.type = "text/javascript";
+document.head.appendChild(script);
+script.onload = function () {
+	BundleLoaded = true;
+};
+
+/*
+o.$.ajaxSetup({
+	dataType: a.m,
+	beforeSend: function (t, i) {
+		var reg;
+		var url = new URL(i.url, o.ct.origin);
+		var token = url.searchParams.get("_");
+		if (token) {
+			token = (reg = RegExp.exec(decodeURIComponent(token)))[1]
+				? f.default.ut(n[2])
+				: f.default._t(n[2]);
+			url.searchParams.set("_", token);
+			i.url = s.toString();
+		}
+	},
+});
+*/
+
+const RegExp = /^(strict)?(.*?)$/;
+
 async function searchResults(keyword) {
 	try {
 		const encodedKeyword = encodeURIComponent(keyword);
@@ -147,9 +190,20 @@ async function extractEpisodes(url) {
 
 		const rateBoxIdRegex = /<div class="rate-box"[^>]*data-id="([^"]+)"/;
 		const idMatch = responseTextForId.match(rateBoxIdRegex);
-		const aniId = idMatch ? idMatch[1] : null;
+		// const aniId = idMatch ? idMatch[1] : null;
 
-		const urlFetchToken = KAICODEX.enc(aniId);
+		// const urlFetchToken = KAICODEX.enc(aniId);
+
+		let param = new URLSearchParams();
+
+		const aniId = idMatch ? idMatch[1] : null;
+		let reg;
+		let token = "strict".concat(aniId);
+		token = (reg = RegExp.exec(decodeURIComponent(token)))[1] ? reg[2] : reg[2];
+
+		param.set("ani_id", aniId);
+		param.set("_", token);
+
 		//	aniId === "c4G4-Q"
 		//		? "Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e"
 		//		: KAICODEX.enc(aniId);
@@ -158,10 +212,14 @@ async function extractEpisodes(url) {
 		// ani_Id Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e
 		// ngnl (forgor aniId)
 		// 		  Zl1OYaV_HJts5mY2W7hIbaWeZkHfEFHLCF7AKL4ekhE
-		const fetchUrlListApi = `https://animekai.to/ajax/episodes/list?ani_id=${encodeURIComponent(
-			aniId
-		)}&_=${urlFetchToken}`;
-		const responseTextListApi = await fetchv3(fetchUrlListApi);
+		const fetchUrlListApi = `https://animekai.to/${"ajax/episodes/list?".concat(
+			param.toString()
+		)}`;
+
+		console.log(fetchUrlListApi);
+
+		const responseTextListApi = $.get(fetchUrlListApi);
+		console.log(responseTextListApi);
 		const data = await responseTextListApi.json();
 
 		if (data.status !== 200) throw new Error(JSON.stringify(data, null, "\t"));
@@ -193,7 +251,7 @@ async function extractEpisodes(url) {
 		return JSON.stringify(episodes);
 	} catch (error) {
 		console.log("Fetch error:" + error);
-		return JSON.stringify([{ number: "0", href: "" }]);
+		return JSON.stringify([{ number: "ERROR", href: "" }]);
 	}
 }
 
@@ -350,7 +408,7 @@ async function loadKaiCodex() {
 
 	try {
 		const res = await fetchv3(
-			"https://raw.githubusercontent.com/amarullz/kaicodex/main/generated/keys.json"
+			"https://raw.githubusercontent.com/haawwkeye/AnimeKai/kaicodex/main/generated/keys.json"
 		);
 		const responseText = await res.text();
 		var keys = JSON.parse(responseText);
