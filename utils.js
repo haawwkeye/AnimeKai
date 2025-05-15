@@ -8,7 +8,10 @@
 function fetchv3(url, options = {}) {
 	return fetch(url, options)
 		.then((response) => {
-			if (options.DisableDebug) {
+			var DisableDebug = options.DisableDebug;
+			var isNull =
+				options.DisableDebug === undefined || options.DisableDebug === null;
+			if (isNull || DisableDebug === false) {
 				console.log("Response:");
 				console.log(response);
 			}
@@ -155,9 +158,13 @@ async function extractEpisodes(url) {
 		// ani_Id Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e
 		// ngnl (forgor aniId)
 		// 		  Zl1OYaV_HJts5mY2W7hIbaWeZkHfEFHLCF7AKL4ekhE
-		const fetchUrlListApi = `https://animekai.to/ajax/episodes/list?ani_id=${aniId}&_=${urlFetchToken}`;
+		const fetchUrlListApi = `https://animekai.to/ajax/episodes/list?ani_id=${encodeURIComponent(
+			aniId
+		)}&_=${urlFetchToken}`;
 		const responseTextListApi = await fetchv3(fetchUrlListApi);
 		const data = await responseTextListApi.json();
+
+		if (data.status !== 200) throw new Error(JSON.stringify(data, null, "\t"));
 
 		let htmlContentListApi = "";
 		htmlContentListApi = cleanJsonHtml(data.result);
@@ -173,7 +180,9 @@ async function extractEpisodes(url) {
 			const num = epMatch[1];
 			const token = epMatch[2];
 			const tokenEncoded = KAICODEX.enc(token);
-			const episodeUrl = `https://animekai.to/ajax/links/list?token=${token}&_=${tokenEncoded}`;
+			const episodeUrl = `https://animekai.to/ajax/links/list?token=${encodeURIComponent(
+				token
+			)}&_=${tokenEncoded}`;
 
 			episodes.push({
 				href: episodeUrl,
@@ -263,7 +272,12 @@ async function extractStreamUrl(url, streamType) {
 				// Hopefully this will fix it just not looking into it rn
 				// besides that I want to make a version that's for BOTH sub and dub later
 				// https://animekai.to/ajax/links/view?id=dIS48a6p6A&_=UVpJN001ckY4cHh4R3I4QVJWM2RqTFdCeFQ
-				fetchUrlServerApi = `https://animekai.to/ajax/links/view?id=${dataLid}&_=${dataLidToken}`;
+				fetchUrlServerApi = `https://animekai.to/ajax/links/view?id=${encodeURIComponent(
+					dataLid
+				)}&_=${dataLidToken}`;
+
+				if (data.status !== 200)
+					throw new Error(JSON.stringify(data, null, "\t"));
 
 				const responseTextServerApi = await fetchv3(fetchUrlServerApi);
 				const dataServerApi = await responseTextServerApi.json();
