@@ -49,37 +49,6 @@ function fetchv3(url, options = {}) {
 		});
 }
 
-async function Setup() {
-	if (typeof HasSetupFinished !== "undefined") return;
-
-	let JQ_Res = await fetchv3(
-		"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js",
-		{
-			DisableDebug: true,
-		}
-	);
-	let bundle_Res = await fetchv3(
-		"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/modified_bundle.js",
-		{
-			DisableDebug: true,
-		}
-	);
-
-	const JQScr = `${JQ_Res.text()}\nthis.JQLoaded = true;`;
-	const bundleScr = `${bundle_Res.text()}\nthis.BundleLoaded = true;`;
-
-	(0, eval)(JQScr);
-	(0, eval)(bundleScr);
-
-	while (typeof JQLoaded === undefined || typeof BundleLoaded === undefined) {
-		await new Promise((resolve) => setTimeout(resolve, 100));
-	}
-
-	this.HasSetupFinished = true;
-
-	return true;
-}
-
 /*
 o.$.ajaxSetup({
 	dataType: a.m,
@@ -100,8 +69,38 @@ o.$.ajaxSetup({
 
 const RegExp = /^(strict)?(.*?)$/;
 
+function encrypt(t) {
+	// var i;
+	// (i = [arguments])[0][0] = s8ttM(i[0][0]);
+	// i[7] = S(i[0][0]);
+	// i[7] = o(i[7]);
+	// i[7] = $(i[7]);
+	// i[7] = y(i[7]);
+	// i[7] = K(i[7]);
+	// i[7] = lt(i[7]);
+	// i[7] = Q(i[7]);
+	// i[7] = J(i[7]);
+	// i[7] = R(i[7]);
+	// i[7] = st(i[7]);
+	// d.b2();
+	// i[7] = tt(i[7]);
+	// i[0][0] = r(i[7]);
+	// return L(i[0][0]);
+	return t; // temp going to keep decompiling manually this will fucking suck
+}
+
+// nothing will happen here, just going to do some simple token setup?
+async function GetEpisodeToken(_token) {
+	const _reg = RegExp.exec(_token);
+	const NewToken = _reg[1] ? encrypt(_reg[2]) : "";
+
+	console.log(_token);
+	console.log(NewToken);
+
+	return NewToken;
+}
+
 async function searchResults(keyword) {
-	await Setup();
 	try {
 		const encodedKeyword = encodeURIComponent(keyword);
 		const searchUrl = `https://animekai.to/browser?keyword=${encodedKeyword}`;
@@ -148,7 +147,6 @@ async function searchResults(keyword) {
 }
 
 async function extractDetails(url) {
-	await Setup();
 	try {
 		const fetchUrl = `${url}`;
 		const response = await fetchv3(fetchUrl);
@@ -187,7 +185,6 @@ async function extractDetails(url) {
 }
 
 async function extractEpisodes(url) {
-	await Setup();
 	try {
 		const fetchUrlForId = `${url}`;
 		const repsonse = await fetchv3(fetchUrlForId);
@@ -207,13 +204,11 @@ async function extractEpisodes(url) {
 
 		let param = new URLSearchParams();
 
-		const aniId = idMatch ? idMatch[1] : null;
-		let reg;
-		let token = "strict".concat(aniId);
-		token = (reg = RegExp.exec(decodeURIComponent(token)))[1] ? reg[2] : reg[2];
+		const aniId = idMatch ? idMatch[1] : "";
+		const token = "strict".concat(aniId);
 
 		param.set("ani_id", aniId);
-		param.set("_", token);
+		param.set("_", await GetEpisodeToken(token));
 
 		//	aniId === "c4G4-Q"
 		//		? "Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e"
@@ -227,9 +222,7 @@ async function extractEpisodes(url) {
 			param.toString()
 		)}`;
 
-		console.log(fetchUrlListApi);
-
-		const responseTextListApi = $.get(fetchUrlListApi);
+		const responseTextListApi = await fetchv3(fetchUrlListApi);
 		console.log(responseTextListApi);
 		const data = await responseTextListApi.json();
 
@@ -248,7 +241,7 @@ async function extractEpisodes(url) {
 		while ((epMatch = episodeRegex.exec(htmlContentListApi)) !== null) {
 			const num = epMatch[1];
 			const token = epMatch[2];
-			const tokenEncoded = KAICODEX.enc(token);
+			const tokenEncoded = await GetEpisodeToken(token);
 			const episodeUrl = `https://animekai.to/ajax/links/list?token=${encodeURIComponent(
 				token
 			)}&_=${tokenEncoded}`;
@@ -267,7 +260,6 @@ async function extractEpisodes(url) {
 }
 
 async function extractStreamUrl(url, streamType) {
-	await Setup();
 	try {
 		const fetchUrl = `${url}`;
 		const reponse = await fetchv3(fetchUrl);
@@ -416,12 +408,14 @@ function cleanJsonHtml(jsonHtml) {
 
 // Credits to @AnimeTV Project for the KAICODEX
 async function loadKaiCodex() {
-	await Setup();
 	if (typeof KAICODEX !== "undefined") return KAICODEX;
 
 	try {
 		const res = await fetchv3(
-			"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/kaicodex/generated/keys.json"
+			"https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/kaicodex/generated/keys.json",
+			{
+				DisableDebug: true,
+			}
 		);
 		const responseText = await res.text();
 		var keys = JSON.parse(responseText);
