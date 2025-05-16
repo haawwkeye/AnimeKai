@@ -255,7 +255,7 @@ async function extractEpisodes(url) {
 		return JSON.stringify(episodes);
 	} catch (error) {
 		console.log("Fetch error:" + error);
-		return JSON.stringify([{ number: "ERROR", href: "" }]);
+		return JSON.stringify([{ number: "-1", href: "" }]);
 	}
 }
 
