@@ -62,10 +62,22 @@ function empty() { }
 // in theory it should since the only thing I did was a simple thing anyways 
 function encryptionSetup() {
 	if (encrypt_ut !== undefined) return; // Already did this setup...
-	if (typeof setTimeout === "undefined") setTimeout = empty;
-	if (typeof clearTimeout === "undefined") clearTimeout = empty;
-	if (typeof setInterval === "undefined") setInterval = empty;
-	if (typeof clearInterval === "undefined") clearInterval = empty;
+
+ let __st, __ct, __si, __ci;
+	if (typeof setTimeout === "undefined") __st = empty;
+	else __st = setTimeout;
+	if (typeof clearTimeout === "undefined") __ct = empty;
+	else __ct = clearTimeout;
+	if (typeof setInterval === "undefined") __si = empty;
+	else __si = setInterval;
+	if (typeof clearInterval === "undefined") __ci = empty;
+	else __ci = clearInterval;
+	
+	const setTimeout = __st;
+	const clearTimeout = __ct;
+ const setInterval = __si;
+	const clearInterval = __ci;
+	
 	//if ()????? how???
 	const win = this;
 	//#region PAIN
