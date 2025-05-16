@@ -65,66 +65,9 @@ function showError(err) {
 }
 
 let encrypt_ut = undefined;
-let encrypt__t = undefined;
+// let encrypt__t = undefined;
 let decrypt_He = undefined;
 let decrypt_Mg = undefined;
-
-function empty() {}
-
-// class customSearchParams {
-// 	constructor(query) {
-// 		this.params = new Map();
-
-// 		if (query) {
-// 			// Parse query string if provided
-// 			if (typeof query === "string") {
-// 				query = query.replace(/^\?/, ""); // Remove leading ?
-// 				const pairs = query.split("&");
-// 				for (const pair of pairs) {
-// 					const [key, value] = pair.split("=");
-// 					this.append(decodeURIComponent(key), decodeURIComponent(value || ""));
-// 				}
-// 			}
-// 		}
-// 	}
-
-// 	append(name, value) {
-// 		const values = this.params.get(name) || [];
-// 		values.push(value);
-// 		this.params.set(name, values);
-// 	}
-
-// 	delete(name) {
-// 		this.params.delete(name);
-// 	}
-
-// 	get(name) {
-// 		const values = this.params.get(name);
-// 		return values ? values[0] : null;
-// 	}
-
-// 	getAll(name) {
-// 		return this.params.get(name) || [];
-// 	}
-
-// 	has(name) {
-// 		return this.params.has(name);
-// 	}
-
-// 	set(name, value) {
-// 		this.params.set(name, [value]);
-// 	}
-
-// 	toString() {
-// 		const pairs = [];
-// 		this.params.forEach((values, name) => {
-// 			for (const value of values) {
-// 				pairs.push(encodeURIComponent(name) + "=" + encodeURIComponent(value));
-// 			}
-// 		});
-// 		return pairs.join("&");
-// 	}
-// }
 
 let DoneEncryptionSetup = false;
 
@@ -137,40 +80,6 @@ let DoneEncryptionSetup = false;
 async function encryptionSetup() {
 	if (DoneEncryptionSetup) return true; // Already did this setup...
 	await loadKaiCodex(); // Load KaiCodex
-
-	// console.warn(encrypt_ut);
-
-	// let __sp = undefined;
-	// let __st = undefined;
-	// let __ct = undefined;
-	// let __si = undefined;
-	// let __ci = undefined;
-
-	// if (typeof globalThis.URLSearchParams === "undefined")
-	// 	__sp = customSearchParams;
-	// else __sp = globalThis.URLSearchParams;
-	// if (typeof globalThis.setTimeout === "undefined") __st = empty;
-	// else __st = globalThis.setTimeout;
-	// if (typeof globalThis.clearTimeout === "undefined") __ct = empty;
-	// else __ct = globalThis.clearTimeout;
-	// if (typeof globalThis.setInterval === "undefined") __si = empty;
-	// else __si = globalThis.setInterval;
-	// if (typeof globalThis.clearInterval === "undefined") __ci = empty;
-	// else __ci = globalThis.clearInterval;
-	// // throw Error("PAIN");
-
-	// globalThis.URLSearchParams = __sp;
-	// globalThis.setTimeout = __st;
-	// globalThis.clearTimeout = __ct;
-	// globalThis.setInterval = __si;
-	// globalThis.clearInterval = __ci;
-
-	// //if ()????? how???
-	// const win = this;
-
-	// console.log("done?");
-	// console.log(this.FG);
-	// console.log(win.FG); // Simple check for me later
 
 	encrypt_ut = KAICODEX.enc; //win.FG.ut;
 	// encrypt__t = win.FG._t; // not needed!
@@ -323,9 +232,7 @@ async function extractEpisodes(url) {
 
 		// const urlFetchToken = KAICODEX.enc(aniId);
 		const ani_id = idMatch ? idMatch[1] : "";
-		let param = new URLSearchParams("ani_id");
-		param.set("ani_id", ani_id);
-		param.set("_", await GetEncryptedToken(ani_id));
+		const token = await GetEncryptedToken(ani_id);
 
 		//	aniId === "c4G4-Q"
 		//		? "Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e"
@@ -333,11 +240,9 @@ async function extractEpisodes(url) {
 
 		// aniId c4G4-Q
 		// ani_Id Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e
-		// ngnl (forgor aniId)
+		// ngl (forgor aniId)
 		// 		  Zl1OYaV_HJts5mY2W7hIbaWeZkHfEFHLCF7AKL4ekhE
-		const fetchUrlListApi = "https://animekai.to/ajax/episodes/list?".concat(
-			param.toString()
-		);
+		const fetchUrlListApi = `https://animekai.to/ajax/episodes/list?ani_id=${ani_id}&_=${token}`;
 
 		const responseTextListApi = await fetchv3(fetchUrlListApi);
 		console.log(responseTextListApi);
@@ -359,13 +264,7 @@ async function extractEpisodes(url) {
 			const num = epMatch[1];
 			const token = epMatch[2];
 			const tokenEncoded = await GetEncryptedToken(token);
-
-			let param = new URLSearchParams("token");
-			param.set("token", token);
-			param.set("_", tokenEncoded);
-			const episodeUrl = "https://animekai.to/ajax/links/list?".concat(
-				param.toString()
-			);
+			const episodeUrl = `https://animekai.to/ajax/links/list?${token}&_=${tokenEncoded}`;
 
 			episodes.push({
 				href: episodeUrl,
