@@ -14572,6 +14572,8 @@ try {
 	//#endregion
 	// End of PAIN
 
+console.log("done?")
+console.log(this.FG)
 	console.log(win.FG) // Simple check for me later
 
 	encrypt_ut = win.FG.ut;
