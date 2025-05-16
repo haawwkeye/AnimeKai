@@ -66,7 +66,7 @@ function encryptionSetup() {
 	if (typeof clearTimeout === "undefined") clearTimeout = empty;
 	if (typeof setInterval === "undefined") setInterval = empty;
 	if (typeof clearInterval === "undefined") clearInterval; = empty;
-	if ()
+	//if ()????? how???
 	const win = this;
 	//#region PAIN
 	(() => {
