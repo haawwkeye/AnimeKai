@@ -1,0 +1,17 @@
+{
+	"sourceName": "AnimeKai",
+	"iconUrl": "https://raw.githubusercontent.com/50n50/sources/refs/heads/main/animekai/iconalt.png",
+	"author": {
+		"name": "Hawk",
+		"icon": "https://avatars.githubusercontent.com/u/30607615?v=4"
+	},
+	"version": "2.0.7",
+	"language": "English",
+	"streamType": "HLS",
+	"quality": "1080p",
+	"baseUrl": "https://animekai.to",
+	"searchBaseUrl": "https://animekai.to/browser?keyword=%s",
+	"scriptUrl": "https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/animekaiUniversal.js",
+	"asyncJS": true,
+	"type": "anime"
+}
