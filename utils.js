@@ -14565,6 +14565,7 @@ try {
 		);
 	})();
 	} catch (error) {
+		console.log("Pain")
 		showError(error)
 	}
 	//#endregion
