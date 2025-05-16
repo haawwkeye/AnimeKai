@@ -73,22 +73,22 @@ function empty() {}
 // This works in node so hopefully it'll work on phone or web
 // in theory it should since the only thing I did was a simple thing anyways
 async function encryptionSetup() {
-	if (encrypt_ut !== undefined) return; // Already did this setup...
+	if (encrypt_ut !== undefined) return true; // Already did this setup...
 
 	let __st = undefined;
 	let __ct = undefined;
 	let __si = undefined;
 	let __ci = undefined;
 
-	if (typeof setTimeout === "undefined") __st = empty;
-	else __st = setTimeout;
-	if (typeof clearTimeout === "undefined") __ct = empty;
-	else __ct = clearTimeout;
-	if (typeof setInterval === "undefined") __si = empty;
-	else __si = setInterval;
-	if (typeof clearInterval === "undefined") __ci = empty;
-	else __ci = clearInterval;
-	throw Error("PAIN");
+	if (typeof globalThis.setTimeout === "undefined") __st = empty;
+	else __st = globalThis.setTimeout;
+	if (typeof globalThis.clearTimeout === "undefined") __ct = empty;
+	else __ct = globalThis.clearTimeout;
+	if (typeof globalThis.setInterval === "undefined") __si = empty;
+	else __si = globalThis.setInterval;
+	if (typeof globalThis.clearInterval === "undefined") __ci = empty;
+	else __ci = globalThis.clearInterval;
+	// throw Error("PAIN");
 
 	globalThis.setTimeout = __st;
 	globalThis.clearTimeout = __ct;
@@ -3862,20 +3862,20 @@ async function encryptionSetup() {
 								Nt: null,
 								Ft: null,
 								Bt: function (t) {
-									if (this.Gt()) {
-										this.Rt = o.$.extend({}, this.Rt, t || {});
-										this.$t = (0, o.$)(Gt)
-											.find(a)
-											.map(function (t, i) {
-												return i[Li];
-											})
-											[Ci]();
-										this.qt = (0, o.$)(Gt[Dt]);
-										(0, o.$)(Gt)
-											.on(f.v, f.p, this.Ht.bind(this))
-											.on(f.m, f.vt, this.zt.bind(this));
-										(0, o.$)(Ht).on(f.dt, this.Vt.bind(this));
-									}
+									// if (this.Gt()) {
+									// 	this.Rt = o.$.extend({}, this.Rt, t || {});
+									// 	this.$t = (0, o.$)(Gt)
+									// 		.find(a)
+									// 		.map(function (t, i) {
+									// 			return i[Li];
+									// 		})
+									// 		[Ci]();
+									// 	this.qt = (0, o.$)(Gt[Dt]);
+									// 	(0, o.$)(Gt)
+									// 		.on(f.v, f.p, this.Ht.bind(this))
+									// 		.on(f.m, f.vt, this.zt.bind(this));
+									// 	(0, o.$)(Ht).on(f.dt, this.Vt.bind(this));
+									// }
 								},
 								Gt: function () {
 									return e && e[bi] && e[zi];
@@ -3945,12 +3945,12 @@ async function encryptionSetup() {
 										crossDomain: !0,
 										dataType: f.Et,
 									};
-									var c = o.$.extend({}, t, i);
-									c.beforeSend = function (i, t) {
-										n = _t(function () {
-											i.abort(f.Ct);
-										}, a.Rt.Ut);
-									};
+									// var c = o.$.extend({}, t, i);
+									// c.beforeSend = function (i, t) {
+									// 	n = _t(function () {
+									// 		i.abort(f.Ct);
+									// 	}, a.Rt.Ut);
+									// };
 									c[Gi] = function (t, i) {
 										a.Yt = 100;
 										if (n) {
@@ -4053,10 +4053,10 @@ async function encryptionSetup() {
 								Jt: function (t, i) {
 									var n = (0, o.$)(this.ri(t.match(Ki)[0]));
 									t = (0, o.$)(this.ri(t.match(Wi)[0]));
-									(i = o.$.extend({}, i)).$t = [].concat(
-										this.hi(n, a)[Ci](),
-										this.hi(t, a)[Ci]()
-									);
+									// (i = o.$.extend({}, i)).$t = [].concat(
+									// 	this.hi(n, a)[Ci](),
+									// 	this.hi(t, a)[Ci]()
+									// );
 									i.Xt = this.hi(n, f.Dt).last()[Ei]();
 									i.ti = [].concat(
 										this.hi(n, f.Mt)[Ci](),
@@ -12845,14 +12845,14 @@ async function encryptionSetup() {
 										});
 								},
 								nv: function () {
-									var i = this;
-									(0, a.$)(Ht)
-										.off(l.Ff)
-										.on(l.Ff, function (t) {
-											if (l.Bf.indexOf(t[U][Ql]) === -1) {
-												i.ot(t[Rt], t);
-											}
-										});
+									// var i = this;
+									// (0, a.$)(Ht)
+									// 	.off(l.Ff)
+									// 	.on(l.Ff, function (t) {
+									// 		if (l.Bf.indexOf(t[U][Ql]) === -1) {
+									// 			i.ot(t[Rt], t);
+									// 		}
+									// 	});
 								},
 								_v: function () {
 									if (this.Xl.Na) {
@@ -13961,17 +13961,17 @@ async function encryptionSetup() {
 										{
 											key: qt.Gi,
 											value: function () {
-												var t;
-												if (
-													((t =
-														(t = Ht.eruda) == null ? undefined : t._devTools) ==
-													null
-														? undefined
-														: t._isShow) === true ||
-													(Ht._vcOrigConsole && Ht[Zt].querySelector(qt.$i))
-												) {
-													// this.onDevToolOpen();
-												}
+												// var t;
+												// if (
+												// 	((t =
+												// 		(t = Ht.eruda) == null ? undefined : t._devTools) ==
+												// 	null
+												// 		? undefined
+												// 		: t._isShow) === true ||
+												// 	(Ht._vcOrigConsole && Ht[Zt].querySelector(qt.$i))
+												// ) {
+												// 	// this.onDevToolOpen();
+												// }
 											},
 										},
 									],
@@ -14607,53 +14607,53 @@ async function encryptionSetup() {
 										isDevToolOpened: false,
 									}
 								);
-								if (
-									(M =
-										qt.u != typeof Ht &&
-										Ht[Zt] &&
-										(kt = Gt.querySelector(qt.pe))
-											? ((mt = [qt.me, qt.ke, qt.ye, qt.ge, qt.we, qt.Se]),
-											  (jt = [qt.Ee]),
-											  (At = {}),
-											  [qt.Ce, qt.xe, qt.Te, qt.It]
-													.concat(mt, jt)
-													.forEach(function (t) {
-														var i;
-														var n = kt.getAttribute(t);
-														if (n !== null) {
-															if (jt.indexOf(t) !== -1) {
-																n = parseInt(n);
-															} else if (mt.indexOf(t) !== -1) {
-																n = qt.De !== n;
-															} else if (qt.Me === t && qt.de !== n) {
-																n = n.split(qt.Ie);
-															}
-															At[
-																(t = t).indexOf(qt.Ae) === -1
-																	? t
-																	: ((i = false),
-																	  t
-																			.split("")
-																			.map(function (t) {
-																				if (qt.Ae === t) {
-																					i = true;
-																					return "";
-																				} else if (i) {
-																					i = false;
-																					return t[Di]();
-																				} else {
-																					return t;
-																				}
-																			})
-																			.join(""))
-															] = n;
-														}
-													}),
-											  At)
-											: null)
-								) {
-									P(M);
-								}
+								// if (
+								// 	(M =
+								// 		qt.u != typeof Ht &&
+								// 		Ht[Zt] &&
+								// 		(kt = Gt.querySelector(qt.pe))
+								// 			? ((mt = [qt.me, qt.ke, qt.ye, qt.ge, qt.we, qt.Se]),
+								// 			  (jt = [qt.Ee]),
+								// 			  (At = {}),
+								// 			  [qt.Ce, qt.xe, qt.Te, qt.It]
+								// 					.concat(mt, jt)
+								// 					.forEach(function (t) {
+								// 						var i;
+								// 						var n = kt.getAttribute(t);
+								// 						if (n !== null) {
+								// 							if (jt.indexOf(t) !== -1) {
+								// 								n = parseInt(n);
+								// 							} else if (mt.indexOf(t) !== -1) {
+								// 								n = qt.De !== n;
+								// 							} else if (qt.Me === t && qt.de !== n) {
+								// 								n = n.split(qt.Ie);
+								// 							}
+								// 							At[
+								// 								(t = t).indexOf(qt.Ae) === -1
+								// 									? t
+								// 									: ((i = false),
+								// 									  t
+								// 											.split("")
+								// 											.map(function (t) {
+								// 												if (qt.Ae === t) {
+								// 													i = true;
+								// 													return "";
+								// 												} else if (i) {
+								// 													i = false;
+								// 													return t[Di]();
+								// 												} else {
+								// 													return t;
+								// 												}
+								// 											})
+								// 											.join(""))
+								// 							] = n;
+								// 						}
+								// 					}),
+								// 			  At)
+								// 			: null)
+								// ) {
+								// 	P(M);
+								// }
 								return P;
 							};
 							if (
@@ -14678,16 +14678,18 @@ async function encryptionSetup() {
 			);
 		})();
 	} catch (error) {
-		console.log("Pain");
+		console.log("Failed to run bundle.js");
 		showError(error);
 		return false;
 	}
 	//#endregion
 	// End of PAIN
 
+	alert("Done?");
+
 	console.log("done?");
-	console.log(this.FG);
-	console.log(win.FG); // Simple check for me later
+	// console.log(this.FG);
+	// console.log(win.FG); // Simple check for me later
 
 	encrypt_ut = win.FG.ut;
 	encrypt__t = win.FG._t;
@@ -14716,6 +14718,8 @@ const RegExp = /^(strict)?(.*?)$/;
 
 // nothing will happen here, just going to do some simple token setup?
 async function GetEncryptedToken(_token, notStrict) {
+	if (!(await encryptionSetup())) throw Error("Failed to startup encryption!");
+
 	if (!notStrict) _token = `strict${_token}`;
 
 	const _reg = RegExp.exec(_token);
@@ -14823,7 +14827,8 @@ async function extractEpisodes(url) {
 		// const patchedKaiCodex = kaiCodexContent + "\nthis.KAICODEX = KAICODEX;"; // attach to global scope
 		// (0, eval)(patchedKaiCodex); // Now it should be visible globally
 
-		await encryptionSetup(); // Load encryption
+		if (!(await encryptionSetup()))
+			throw Error("Failed to startup encryption!"); // Load encryption
 
 		const rateBoxIdRegex = /<div class="rate-box"[^>]*data-id="([^"]+)"/;
 		const idMatch = responseTextForId.match(rateBoxIdRegex);
@@ -14900,7 +14905,8 @@ async function extractStreamUrl(url, streamType) {
 		// const patchedKaiCodex = kaiCodexContent + "\nthis.KAICODEX = KAICODEX;"; // attach to global scope
 		// (0, eval)(patchedKaiCodex); // Now it should be visible globally
 
-		await encryptionSetup(); // Load encryption
+		if (!(await encryptionSetup()))
+			throw Error("Failed to startup encryption!"); // Load encryption
 
 		// Extract div blocks with their content
 		const subRegex =
