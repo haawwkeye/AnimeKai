@@ -63,7 +63,10 @@ function empty() { }
 function encryptionSetup() {
 	if (encrypt_ut !== undefined) return; // Already did this setup...
 
- let __st, __ct, __si, __ci;
+ let __st = undefined;
+	let __ct = undefined;
+	let __si = undefined;
+	let __ci = undefined;
 	if (typeof setTimeout === "undefined") __st = empty;
 	else __st = setTimeout;
 	if (typeof clearTimeout === "undefined") __ct = empty;
