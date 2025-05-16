@@ -1049,7 +1049,7 @@ function encryptionSetup() {
 				F = i[He];
 				b = Be;
 				e = i[(n = $e)][Ve](i);
-				l = i[Ye];
+				l = setTimeout;
 				T = i[Ge] || l;
 				d = i.requestIdleCallback;
 				D = Je;
