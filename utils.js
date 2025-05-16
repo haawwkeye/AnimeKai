@@ -96,6 +96,7 @@ function encryptionSetup() {
 	//if ()????? how???
 	const win = this;
 	//#region PAIN
+try {
 	(() => {
 		win.location = typeof window !== "undefined" ? window.location : {
 			host: "",
@@ -14563,6 +14564,9 @@ function encryptionSetup() {
 			[8]
 		);
 	})();
+	} catch (error) {
+		showError(error)
+	}
 	//#endregion
 	// End of PAIN
 
