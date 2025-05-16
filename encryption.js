@@ -1,5 +1,10 @@
-// throw Error("Test");
+const win = this;
 (() => {
+	win.location = typeof window !== "undefined" ? window.location : {
+		host: "",
+		origin: ""
+	}
+
 	var je = "lazyload";
 	var qe = "lazyloaded";
 	var Pe = "lazyloading";
@@ -1554,7 +1559,7 @@
 	if (M == typeof module && module.exports) {
 		module.exports = E;
 	}
-	(o = window.modals = {}).signin = Z;
+	(o = this.modals = {}).signin = Z;
 	o.request = ee;
 	o["w2g-create"] = te;
 	o.report = ae;
@@ -3178,7 +3183,7 @@
 		}
 		return u;
 	}
-	Ht = window;
+	Ht = win;
 	w = {
 		eVSRI: function (t, i) {
 			return t == i;
@@ -3223,17 +3228,17 @@
 			return t == i;
 		},
 	};
-	Gt = Ht[Zt];
-	$t = Ht[o];
-	Pt = Ht[wt];
-	St = Ht[yt];
-	q = Ht[Lt];
-	_t = Ht[h];
-	E = Ht[f];
-	p = Ht[l];
-	M = Ht[v];
-	Ot = Ht[d];
-	y = Ht[g];
+	// Gt = Ht[Zt];
+	// $t = navigator;
+	Pt = Object;
+	St = Array;
+	q = String;
+	_t = setTimeout;
+	E = clearTimeout;
+	p = setInterval;
+	M = clearInterval;
+	Ot = encodeURIComponent;
+	y = decodeURIComponent;
 	(n = {})["1"] = 1;
 	n["4"] = 4;
 	n["5"] = 5;
@@ -3247,6 +3252,7 @@
 		{
 			1: [
 				function (t, i, n) {
+					t(6)
 					n.i = !0;
 					n[G] = undefined;
 					var r = {
@@ -3277,79 +3283,79 @@
 							return w.YlsFO(Ot, t).replace(A, y);
 						},
 					};
-					function a(o, c) {
-						function e(t, i, n) {
-							if (typeof Gt !== h.u) {
-								if (typeof (n = f({}, c, n)).expires === h._) {
-									n.expires = new Date(Date[N]() + n.expires * 86400000);
-								}
-								n.expires &&= n.expires[X]();
-								t = Ot(t).replace(J, y).replace(R, escape);
-								var r;
-								var a = "";
-								for (r in n) {
-									if (n[r] && ((a += h.v.concat(r)), n[r] !== true)) {
-										a += h.p.concat(n[r].split(h.l)[0]);
-									}
-								}
-								return (Gt[Q] = `${t}${h.p}${o.write(i, t)}${a}`);
-							}
-						}
-						function t(t) {
-							if (typeof Gt !== h.u && (!arguments[Tt] || t)) {
-								for (
-									var s = Gt[Q] ? Gt[Q].split(h.v) : [], e = {}, r = 0;
-									r < s[Tt];
-									r++
-								) {
-									var a = s[r].split(h.p);
-									var c = a.slice(1).join(h.p);
-									try {
-										var u = y(a[0]);
-										e[u] = o.read(c, u);
-										if (t === u) {
-											break;
-										}
-									} catch (t) {}
-								}
-								if (t) {
-									return e[t];
-								} else {
-									return e;
-								}
-							}
-						}
-						return Pt.create(
-							{
-								set: e,
-								get: t,
-								remove: function (t, i) {
-									var n = {
-										expires: -1,
-									};
-									e(t, "", f({}, i, n));
-								},
-								withAttributes: function (t) {
-									return a(this.converter, f({}, this[F], t));
-								},
-								withConverter: function (t) {
-									return a(f({}, this.converter, t), this[F]);
-								},
-							},
-							{
-								attributes: {
-									value: Pt.freeze(c),
-								},
-								converter: {
-									value: Pt.freeze(o),
-								},
-							}
-						);
-					}
+					// function a(o, c) {
+					// 	function e(t, i, n) {
+					// 		if (typeof Gt !== h.u) {
+					// 			if (typeof (n = f({}, c, n)).expires === h._) {
+					// 				n.expires = new Date(Date[N]() + n.expires * 86400000);
+					// 			}
+					// 			n.expires &&= n.expires[X]();
+					// 			t = Ot(t).replace(J, y).replace(R, escape);
+					// 			var r;
+					// 			var a = "";
+					// 			for (r in n) {
+					// 				if (n[r] && ((a += h.v.concat(r)), n[r] !== true)) {
+					// 					a += h.p.concat(n[r].split(h.l)[0]);
+					// 				}
+					// 			}
+					// 			return (Gt[Q] = `${t}${h.p}${o.write(i, t)}${a}`);
+					// 		}
+					// 	}
+					// 	function t(t) {
+					// 		if (typeof Gt !== h.u && (!arguments[Tt] || t)) {
+					// 			for (
+					// 				var s = Gt[Q] ? Gt[Q].split(h.v) : [], e = {}, r = 0;
+					// 				r < s[Tt];
+					// 				r++
+					// 			) {
+					// 				var a = s[r].split(h.p);
+					// 				var c = a.slice(1).join(h.p);
+					// 				try {
+					// 					var u = y(a[0]);
+					// 					e[u] = o.read(c, u);
+					// 					if (t === u) {
+					// 						break;
+					// 					}
+					// 				} catch (t) {}
+					// 			}
+					// 			if (t) {
+					// 				return e[t];
+					// 			} else {
+					// 				return e;
+					// 			}
+					// 		}
+					// 	}
+					// 	return Pt.create(
+					// 		{
+					// 			set: e,
+					// 			get: t,
+					// 			remove: function (t, i) {
+					// 				var n = {
+					// 					expires: -1,
+					// 				};
+					// 				e(t, "", f({}, i, n));
+					// 			},
+					// 			withAttributes: function (t) {
+					// 				return a(this.converter, f({}, this[F], t));
+					// 			},
+					// 			withConverter: function (t) {
+					// 				return a(f({}, this.converter, t), this[F]);
+					// 			},
+					// 		},
+					// 		{
+					// 			attributes: {
+					// 				value: Pt.freeze(c),
+					// 			},
+					// 			converter: {
+					// 				value: Pt.freeze(o),
+					// 			},
+					// 		}
+					// 	);
+					// }
 					var c = {
 						path: h.m,
 					};
-					n[G] = a(r, c);
+					// n[G] = a(r, c);
 				},
 				{},
 			],
@@ -3383,6 +3389,7 @@
 					e = t(5);
 					n.D = e[G];
 					var f = w.YlsFO(t, 6);
+					win.FG = f[G]
 					n.M = f[G];
 					var e = {
 						o: it,
@@ -3423,13 +3430,13 @@
 							this[s] = function () {
 								this.G.apply(this, arguments);
 							};
-							this[s][Ut] =
-								arguments[Tt] > 1
-									? o.$[ut].apply(
-											null,
-											[!0, {}].concat([][Ct].call(arguments, 0))
-									  )
-									: arguments[0];
+							// this[s][Ut] =
+							// 	arguments[Tt] > 1
+							// 		? o.$.extend.apply(
+							// 				null,
+							// 				[!0, {}].concat([][Ct].call(arguments, 0))
+							// 		  )
+							// 		: arguments[0];
 							var e = v.U(v.L);
 							if (!e || !(0, o.q)(o.H, e)) {
 								this[s] = function () {};
@@ -3442,23 +3449,23 @@
 						},
 						V: function (s, e) {
 							var r = this;
-							(0, o.$)(Gt).on(a.v, function (t, i) {
-								i.querySelectorAll(e).forEach(function (t) {
-									if (!(t = (0, o.$)(t)).data(s)) {
-										t.data(s, new r[s](t));
-									}
-								});
-							});
+							// (0, o.$)(Gt).on(a.v, function (t, i) {
+							// 	i.querySelectorAll(e).forEach(function (t) {
+							// 		if (!(t = (0, o.$)(t)).data(s)) {
+							// 			t.data(s, new r[s](t));
+							// 		}
+							// 	});
+							// });
 						},
 						K: function (t) {
-							(0, o.$)(Gt).trigger(a.v, [t]);
+							// (0, o.$)(Gt).trigger(a.v, [t]);
 						},
 					});
-					o.$.fn.activate = function () {
-						return this.each(function () {
-							d.K(this);
-						});
-					};
+					// o.$.fn.activate = function () {
+					// 	return this.each(function () {
+					// 		d.K(this);
+					// 	});
+					// };
 					var g = (n.S = {
 						Y: {},
 						W: function (t, i) {
@@ -3478,9 +3485,9 @@
 							}
 						},
 					});
-					(0, o.$)(Gt).on(s.Z.X, function () {
-						g.Y = {};
-					});
+					// (0, o.$)(Gt).on(s.Z.X, function () {
+					// 	g.Y = {};
+					// });
 					n.C = d.B({
 						G: function (t, i, n) {
 							this.tt = t;
@@ -3512,20 +3519,20 @@
 							}
 						},
 					});
-					o.$.ajaxSetup({
-						dataType: a.m,
-						beforeSend: function (t, i) {
-							var n;
-							var s = new URL(i[It], o.ct[ht]);
-							var e = (0, o.I)(95);
-							var r = s[ft].get(e);
-							if (r) {
-								r = (n = lt.exec(y(r)))[1] ? f[G].ut(n[2]) : f[G]._t(n[2]);
-								s[ft].set(e, r);
-								i[It] = s[Vt]();
-							}
-						},
-					});
+					// o.$.ajaxSetup({
+					// 	dataType: a.m,
+					// 	beforeSend: function (t, i) {
+					// 		var n;
+					// 		var s = new URL(i[It], o.ct[ht]);
+					// 		var e = (0, o.I)(95);
+					// 		var r = s[ft].get(e);
+					// 		if (r) {
+					// 			r = (n = lt.exec(y(r)))[1] ? f[G].ut(n[2]) : f[G]._t(n[2]);
+					// 			s[ft].set(e, r);
+					// 			i[It] = s[Vt]();
+					// 		}
+					// 	},
+					// });
 				},
 				n,
 			],
@@ -3604,17 +3611,17 @@
 							// Gt[Dt].appendChild(t);
 							// Gt[Dt].removeChild(t);
 						}
-						o.T.remove(e);
-						c.issSr(t);
-						c.kjhKo(p, t, 1500);
-						_t(function t() {
-							if ((s = s || !!o.T.get(e))) {
-								o.T.remove(e);
-								l();
-							} else {
-								_t(t, 1000);
-							}
-						}, 200);
+						// o.T.remove(e);
+						// c.issSr(t);
+						// c.kjhKo(p, t, 1500);
+						// _t(function t() {
+						// 	if ((s = s || !!o.T.get(e))) {
+						// 		o.T.remove(e);
+						// 		l();
+						// 	} else {
+						// 		_t(t, 1000);
+						// 	}
+						// }, 200);
 					}
 					function d() {
 						var a = 0;
@@ -3640,7 +3647,7 @@
 								}, 2000);
 							}
 						}
-						$(Gt).ready(i).on(f.m, i);
+						// $(Gt).ready(i).on(f.m, i);
 					}
 					function g() {
 						var t = o.g.U(o.g.L);
@@ -4026,6 +4033,7 @@
 			],
 			6: [
 				function (t, i, n) {
+					t(2);
 					n.i = !0;
 					n[G] = undefined;
 					var s = {
@@ -6295,6 +6303,7 @@
 								i[0][0] = r(i[7]);
 								return L(i[0][0]);
 							}
+							this.ut_encrypt = encrypt
 							function ct(t) {
 								var i;
 								(i = [arguments])[9] = r(i[0][0]);
@@ -6545,14 +6554,14 @@
 					(0, u[G])();
 					(0, o[G])();
 					(0, f[G])();
-					(0, h[G])();
+					// (0, h[G])();
 					(0, l[G])();
 					(0, t[G])();
-					s.k.K(Gt);
-					if (v.o in $t) {
-						if (!window.FG) window.FG = f[G]
-						$t[ws].register(v.u);
-					}
+					// s.k.K(Gt);
+					// if (v.o in $t) {
+					// 	if (!window.FG) window.FG = f[G]
+					// 	$t[ws].register(v.u);
+					// }
 				},
 				{
 					11: 11,
@@ -6954,9 +6963,9 @@
 					var v = h.p;
 					var d = h.m;
 					var g = u.ct[Qr];
-					(0, u.$)(Gt).on(t.Z.Lt, function () {
-						g = u.ct[Qr];
-					});
+					// (0, u.$)(Gt).on(t.Z.Lt, function () {
+					// 	g = u.ct[Qr];
+					// });
 					var w = s.k.B({
 						G: function (t) {
 							var i = this;
@@ -7565,16 +7574,16 @@
 						In: nc,
 						An: sc,
 					};
-					a.$.fn.loading = function () {
-						return this.html(u.o);
-					};
-					a.$.fn.scrollFocus = function () {
-						Ht.scrollTo({
-							top: Gt[Dt][ec] + this[Ra]()[ss],
-							behavior: u.u,
-						});
-						return this;
-					};
+					// a.$.fn.loading = function () {
+					// 	return this.html(u.o);
+					// };
+					// a.$.fn.scrollFocus = function () {
+					// 	Ht.scrollTo({
+					// 		top: Gt[Dt][ec] + this[Ra]()[ss],
+					// 		behavior: u.u,
+					// 	});
+					// 	return this;
+					// };
 					var o = s.k.B({
 						G: function (t) {
 							a.We.Tooltip.getOrCreateInstance(t[0]);
@@ -9060,15 +9069,15 @@
 					}
 					e = u.Tt;
 					t = u.Dt;
-					(0, r.$)(Gt)
-						.ready(f)
-						.on(a.Z.Lt, f)
-						.on(Ku.concat(t), u.li, function (t) {
-							return h(t[_]);
-						});
-					n[G] = function () {
-						o.V(u.vi);
-					};
+					// (0, r.$)(Gt)
+					// 	.ready(f)
+					// 	.on(a.Z.Lt, f)
+					// 	.on(Ku.concat(t), u.li, function (t) {
+					// 		return h(t[_]);
+					// 	});
+					// n[G] = function () {
+					// 	o.V(u.vi);
+					// };
 				},
 				{
 					15: 15,
@@ -9221,11 +9230,11 @@
 						yh: null,
 						Bt: function () {
 							var t = this;
-							(0, u.$)(Gt).on(r.Z.Lt, function () {
-								t.kh = null;
-								t.gh();
-							});
-							_t(this.gh.bind(this), 100);
+							// (0, u.$)(Gt).on(r.Z.Lt, function () {
+							// 	t.kh = null;
+							// 	t.gh();
+							// });
+							// _t(this.gh.bind(this), 100);
 						},
 						gh: function () {
 							try {
@@ -9907,9 +9916,9 @@
 						po: null,
 						mo: false,
 						Bt: function () {
-							r.S.W(c.En.Qa, this.ko.bind(this));
-							$(Gt).on(a.Z.X, this.ko.bind(this));
-							$(Ht).on(v.v, this.ko.bind(this)).on(v.p, this.yo.bind(this));
+							// r.S.W(c.En.Qa, this.ko.bind(this));
+							// $(Gt).on(a.Z.X, this.ko.bind(this));
+							// $(Ht).on(v.v, this.ko.bind(this)).on(v.p, this.yo.bind(this));
 						},
 						yo: function (t) {
 							if (t[af] - (this.wo || 0) >= 5000) {
@@ -10095,9 +10104,9 @@
 						Ro: null,
 						jo: new Map(),
 						Bt: function () {
-							r.S.W(c.En.Qa, this.Xa.bind(this));
-							$(Gt).on(a.Z.X, this.Uo.bind(this));
-							$(Ht).on(v.v, this.Uo.bind(this));
+							// r.S.W(c.En.Qa, this.Xa.bind(this));
+							// $(Gt).on(a.Z.X, this.Uo.bind(this));
+							// $(Ht).on(v.v, this.Uo.bind(this));
 						},
 						Oo: function () {
 							this.Ro = null;
@@ -13519,26 +13528,26 @@
 						};
 						function O() {
 							function t(t) {
-								return i.indexOf(t) !== -1;
+								return true// i.indexOf(t) !== -1;
 							}
-							var i = $t[Zv][Xv]();
-							var n = (() => {
-								var t = (i = $t)[Jv];
-								var i = i[Rv];
-								if (qt.Ct == typeof i) {
-									return i > 1;
-								}
-								if (qt.yt == typeof t) {
-									i = t[Xv]();
-									if (Qv.test(i)) {
-										return false;
-									}
-									if (Fv.test(i)) {
-										return true;
-									}
-								}
-								return t6.test($t[Zv][Xv]());
-							})();
+							// var i = $t[Zv][Xv]();
+							// var n = (() => {
+							// 	var t = (i = $t)[Jv];
+							// 	var i = i[Rv];
+							// 	if (qt.Ct == typeof i) {
+							// 		return i > 1;
+							// 	}
+							// 	if (qt.yt == typeof t) {
+							// 		i = t[Xv]();
+							// 		if (Qv.test(i)) {
+							// 			return false;
+							// 		}
+							// 		if (Fv.test(i)) {
+							// 			return true;
+							// 		}
+							// 	}
+							// 	return t6.test($t[Zv][Xv]());
+							// })();
 							var s = !!Ht[ss] && Ht !== Ht[ss];
 							var e = !n;
 							var r = t(qt.fi);
@@ -13650,16 +13659,16 @@
 								: function (t, i) {
 										return t[mi] && (i === a || i === r);
 								  };
-							n.addEventListener(
-								qt.gi,
-								function (t) {
-									var i = (t = t || n[Rl])[Rt] || t[Mi];
-									if (i === c || u(t, i) || o(t, i)) {
-										return F(n, t);
-									}
-								},
-								true
-							);
+							// n.addEventListener(
+							// 	qt.gi,
+							// 	function (t) {
+							// 		var i = (t = t || n[Rl])[Rt] || t[Mi];
+							// 		if (i === c || u(t, i) || o(t, i)) {
+							// 			return F(n, t);
+							// 		}
+							// 	},
+							// 	true
+							// );
 							i = n;
 							if (f.disableMenu) {
 								i.addEventListener(qt.wi, function (t) {
@@ -14457,3 +14466,51 @@
 		[8]
 	);
 })();
+
+console.log(win.FG)
+
+const encrypt_ut = win.FG.ut;
+const encrypt__t = win.FG._t;
+
+// console.log(String.fromCharCode(123))
+
+let testObj_ut = {
+	"1234567890": "WRNO8eNzCJwYM0Q3WxScKYqXNgXfDFJmx2STE94RsUhjdIFMtw_BC6Wf9xE",
+	"c4G4-Q": "Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e",
+};
+
+let testObj__t = {
+	"1234567890": "cZFsaWak-FdVaw",
+	"c4G4-Q": "I5cYaX7D",
+};
+
+// function test() {
+let Passed_ut = 0;
+let Passed__t = 0;
+
+for (const key in testObj_ut) {
+	try {
+		const newToken = encrypt_ut(key);
+		if (testObj_ut[key] === newToken) {
+			Passed_ut++;
+		}
+	} catch (error) {
+		console.log(`Failed to encrypt key: ${key}\r\nReason: ${error}`);
+	}
+}
+
+for (const key in testObj__t) {
+	try {
+		const newToken = encrypt__t(key);
+		if (testObj__t[key] === newToken) {
+			Passed__t++;
+		}
+	} catch (error) {
+		console.log(`Failed to encrypt key: ${key}\r\nReason: ${error}`);
+	}
+}
+
+console.log(`Passed_ut: ${Passed_ut}\r\nPassed__t: ${Passed__t}\r\nTotal: ${Passed_ut+Passed__t}`)
+// }
+
+// test()
