@@ -72,7 +72,7 @@ function empty() { }
 // That way it won't kill itself!
 // This works in node so hopefully it'll work on phone or web
 // in theory it should since the only thing I did was a simple thing anyways 
-function encryptionSetup() {
+async function encryptionSetup() {
 	if (encrypt_ut !== undefined) return; // Already did this setup...
 
  let __st = undefined;
@@ -14709,7 +14709,7 @@ async function extractEpisodes(url) {
 		// const patchedKaiCodex = kaiCodexContent + "\nthis.KAICODEX = KAICODEX;"; // attach to global scope
 		// (0, eval)(patchedKaiCodex); // Now it should be visible globally
 
-		encryptionSetup(); // Load encryption
+		await encryptionSetup(); // Load encryption
 
 		const rateBoxIdRegex = /<div class="rate-box"[^>]*data-id="([^"]+)"/;
 		const idMatch = responseTextForId.match(rateBoxIdRegex);
@@ -14782,7 +14782,7 @@ async function extractStreamUrl(url, streamType) {
 		// const patchedKaiCodex = kaiCodexContent + "\nthis.KAICODEX = KAICODEX;"; // attach to global scope
 		// (0, eval)(patchedKaiCodex); // Now it should be visible globally
 
-		encryptionSetup(); // Load encryption
+		await encryptionSetup(); // Load encryption
 
 		// Extract div blocks with their content
 		const subRegex =
