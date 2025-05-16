@@ -49,8 +49,7 @@ function fetchv3(url, options = {}) {
 		});
 }
 
-let encrypt_ut = undefined;
-let encrypt__t = undefined;
+let encrypt_ut, encrypt__t;
 
 // THIS IS A TEMP FUNCTION (until I load it via a script instead of hardcoding it!!!)
 // This may not work as I'm going to sleep right after commiting this and then pushing tomorrow to test
@@ -14559,8 +14558,10 @@ o.$.ajaxSetup({
 const RegExp = /^(strict)?(.*?)$/;
 
 // nothing will happen here, just going to do some simple token setup?
-async function GetEncryptedToken(_token) {
-	_token = `strict${_token}`
+async function GetEncryptedToken(_token, notStrict) {
+
+	if (notStrict) _token = encodeURIComponent(_token)
+	else _token = encodeURIComponent(`strict${_token}`)
 
 	const _reg = RegExp.exec(_token);
 	const NewToken = _reg[1] ? encrypt_ut(_reg[2]) : encrypt__t(_reg[2]);
@@ -14575,7 +14576,9 @@ async function searchResults(keyword) {
 	try {
 		const encodedKeyword = encodeURIComponent(keyword);
 		const searchUrl = `https://animekai.to/browser?keyword=${encodedKeyword}`;
-		const response = await fetchv3(searchUrl);
+		const response = await fetchv3(searchUrl, {
+			DisableDebug: true
+		});
 		const responseText = await response.text();
 
 		const results = [];
@@ -14620,7 +14623,9 @@ async function searchResults(keyword) {
 async function extractDetails(url) {
 	try {
 		const fetchUrl = `${url}`;
-		const response = await fetchv3(fetchUrl);
+		const response = await fetchv3(fetchUrl, {
+			DisableDebug: true
+		});
 		const responseText = await response.text();
 
 		const details = [];
