@@ -66,6 +66,63 @@ let encrypt__t = undefined;
 
 function empty() {}
 
+class customSearchParams {
+	constructor(query) {
+		this.params = new Map();
+
+		if (query) {
+			// Parse query string if provided
+			if (typeof query === "string") {
+				query = query.replace(/^\?/, ""); // Remove leading ?
+				const pairs = query.split("&");
+				for (const pair of pairs) {
+					const [key, value] = pair.split("=");
+					this.append(decodeURIComponent(key), decodeURIComponent(value || ""));
+				}
+			}
+		}
+	}
+
+	append(name, value) {
+		const values = this.params.get(name) || [];
+		values.push(value);
+		this.params.set(name, values);
+	}
+
+	delete(name) {
+		this.params.delete(name);
+	}
+
+	get(name) {
+		const values = this.params.get(name);
+		return values ? values[0] : null;
+	}
+
+	getAll(name) {
+		return this.params.get(name) || [];
+	}
+
+	has(name) {
+		return this.params.has(name);
+	}
+
+	set(name, value) {
+		this.params.set(name, [value]);
+	}
+
+	toString() {
+		const pairs = [];
+		this.params.forEach((values, name) => {
+			for (const value of values) {
+				pairs.push(encodeURIComponent(name) + "=" + encodeURIComponent(value));
+			}
+		});
+		return pairs.join("&");
+	}
+}
+
+let DoneEncryptionSetup = false;
+
 // THIS IS A TEMP FUNCTION (until I load it via a script instead of hardcoding it!!!)
 // This may not work as I'm going to sleep right after commiting this and then pushing tomorrow to test
 // This is basically a 1:1 with the bundle just with a BUNCH of removed/commented out code
@@ -73,13 +130,19 @@ function empty() {}
 // This works in node so hopefully it'll work on phone or web
 // in theory it should since the only thing I did was a simple thing anyways
 async function encryptionSetup() {
-	if (encrypt_ut !== undefined) return true; // Already did this setup...
+	if (DoneEncryptionSetup) return true; // Already did this setup...
 
+	console.warn(encrypt_ut);
+
+	let __sp = undefined;
 	let __st = undefined;
 	let __ct = undefined;
 	let __si = undefined;
 	let __ci = undefined;
 
+	if (typeof globalThis.URLSearchParams === "undefined")
+		__sp = customSearchParams;
+	else __sp = globalThis.URLSearchParams;
 	if (typeof globalThis.setTimeout === "undefined") __st = empty;
 	else __st = globalThis.setTimeout;
 	if (typeof globalThis.clearTimeout === "undefined") __ct = empty;
@@ -90,6 +153,7 @@ async function encryptionSetup() {
 	else __ci = globalThis.clearInterval;
 	// throw Error("PAIN");
 
+	globalThis.URLSearchParams = __sp;
 	globalThis.setTimeout = __st;
 	globalThis.clearTimeout = __ct;
 	globalThis.setInterval = __si;
@@ -3732,23 +3796,23 @@ async function encryptionSetup() {
 								}
 							}
 							function v() {
-								a({
-									rewriteHTML: f.o,
-									interval: 200,
-									disableMenu: !1,
-									// ondevtoolopen: function (t, i) {
-									// 	l();
-									// 	c.issSr(i);
-									// },
-								});
-								var s;
-								var e = f.u;
-								function t() {
-									var t = Gt.createElement(f._);
-									t[Qt] = f.l;
-									// Gt[Dt].appendChild(t);
-									// Gt[Dt].removeChild(t);
-								}
+								// a({
+								// 	rewriteHTML: f.o,
+								// 	interval: 200,
+								// 	disableMenu: !1,
+								// 	// ondevtoolopen: function (t, i) {
+								// 	// 	l();
+								// 	// 	c.issSr(i);
+								// 	// },
+								// });
+								// var s;
+								// var e = f.u;
+								// function t() {
+								// 	var t = Gt.createElement(f._);
+								// 	t[Qt] = f.l;
+								// 	// Gt[Dt].appendChild(t);
+								// 	// Gt[Dt].removeChild(t);
+								// }
 								// o.T.remove(e);
 								// c.issSr(t);
 								// c.kjhKo(p, t, 1500);
@@ -11516,14 +11580,14 @@ async function encryptionSetup() {
 									this.D_.val(t.hasClass(o.ac) ? 1 : 0);
 								},
 								A_: function (t) {
-									this.L_ = null;
-									this.y_.attr(o.rc, t.user.avatar_url);
-									this.g_.html(t.user[Et]);
-									this.w_.attr(o.rc, t.anime[b2]);
-									this.S_.css(o.hc, D5.concat(t.anime[b2], le));
-									this.E_.html(t.anime[yi]);
-									this.C_.val(t.anime[yi]).attr(o.nc, t.anime[yi]);
-									this.T_.val(t.anime[S]);
+									// this.L_ = null;
+									// this.y_.attr(o.rc, t.user.avatar_url);
+									// this.g_.html(t.user[Et]);
+									// this.w_.attr(o.rc, t.anime[b2]);
+									// this.S_.css(o.hc, D5.concat(t.anime[b2], le));
+									// this.E_.html(t.anime[yi]);
+									// this.C_.val(t.anime[yi]).attr(o.nc, t.anime[yi]);
+									// this.T_.val(t.anime[S]);
 								},
 							});
 							var C = r.k.B({
@@ -12160,79 +12224,79 @@ async function encryptionSetup() {
 									(0, a.$)(Ht).off(l.we).on(l.we, this.sl.bind(this));
 								},
 								Lc: function (t) {
-									var i = this;
-									this.Oc.html(t).activate();
-									this.nl = this.Oc.find(l.Se);
-									this.al = this.Oc.find(l.Ee);
-									this.Pc = this.Oc.find(l.Ce);
-									this.rl = this.Oc.find(l.xe);
-									this.hl = this.Oc.find(l.Te);
-									this.ol = this.Oc.find(l.De);
-									this.cl = this.Oc.find(l.Me);
-									this.ul = this.Oc.find(l.Ie);
-									this._l = this.Oc.find(l.Ae);
-									this.fl = this._l.find(l.$i);
-									this.cl.click(this.ll.bind(this));
-									this.ul.click(this.vl.bind(this));
-									this.hl.click(this.dl.bind(this));
-									this.ol.click(this.bl.bind(this));
-									this._l.submit(this.pl.bind(this));
-									this.fl
-										.focus(function (t) {
-											return i.fl[cs]();
-										})
-										.keyup(this.ml.bind(this));
-									this.nl.on(l.Le, l.Re, this.kl.bind(this));
-									this.uu();
-									this.yl();
-									this.gl("");
-									this.wl(this.Sl());
+									// var i = this;
+									// this.Oc.html(t).activate();
+									// this.nl = this.Oc.find(l.Se);
+									// this.al = this.Oc.find(l.Ee);
+									// this.Pc = this.Oc.find(l.Ce);
+									// this.rl = this.Oc.find(l.xe);
+									// this.hl = this.Oc.find(l.Te);
+									// this.ol = this.Oc.find(l.De);
+									// this.cl = this.Oc.find(l.Me);
+									// this.ul = this.Oc.find(l.Ie);
+									// this._l = this.Oc.find(l.Ae);
+									// this.fl = this._l.find(l.$i);
+									// this.cl.click(this.ll.bind(this));
+									// this.ul.click(this.vl.bind(this));
+									// this.hl.click(this.dl.bind(this));
+									// this.ol.click(this.bl.bind(this));
+									// this._l.submit(this.pl.bind(this));
+									// this.fl
+									// 	.focus(function (t) {
+									// 		return i.fl[cs]();
+									// 	})
+									// 	.keyup(this.ml.bind(this));
+									// this.nl.on(l.Le, l.Re, this.kl.bind(this));
+									// this.uu();
+									// this.yl();
+									// this.gl("");
+									// this.wl(this.Sl());
 								},
 								Zc: function (t) {
-									this.qc.html(t).activate();
-									this.El = this.qc.find(l.je);
-									this.Cl = this.qc.find(l.Ue);
-									this.Hc = this.qc.find(l.Oe);
-									this.Hc.click(this.Yc.bind(this));
-									this.El.click(this.xl.bind(this));
-									this.tu();
-									if (this.bu()[Tt]) {
-										this.Nc.addClass(l.Pe);
-									}
-									t = c.dn.Pa(c.ja.dh);
-									this.Tl(t === undefined || t);
+									// this.qc.html(t).activate();
+									// this.El = this.qc.find(l.je);
+									// this.Cl = this.qc.find(l.Ue);
+									// this.Hc = this.qc.find(l.Oe);
+									// this.Hc.click(this.Yc.bind(this));
+									// this.El.click(this.xl.bind(this));
+									// this.tu();
+									// if (this.bu()[Tt]) {
+									// 	this.Nc.addClass(l.Pe);
+									// }
+									// t = c.dn.Pa(c.ja.dh);
+									// this.Tl(t === undefined || t);
 								},
 								uu: function () {
-									var n = this;
-									this.Pc.each(function (t, i) {
-										(i = (0, a.$)(i)).attr(l.Ne, `${n.V0}${Tl}${i.attr(l.Fe)}`);
-									});
+									// var n = this;
+									// this.Pc.each(function (t, i) {
+									// 	(i = (0, a.$)(i)).attr(l.Ne, `${n.V0}${Tl}${i.attr(l.Fe)}`);
+									// });
 								},
 								Dl: function (n) {
-									n = new URL(n);
-									new URLSearchParams(x).forEach(function (t, i) {
-										n[ft].set(i, t);
-									});
-									if (this.Ml || this.z0.Il()) {
-										n[ft].set(l.Be, l.Ge);
-									}
-									n = n[Vt]();
-									this.Tu[rr]().not(l.$e)[P]();
-									var t = this.Tu.find(l.$e);
-									if (t[Tt]) {
-										t.attr(l.qe, n);
-									} else {
-										t = (0, a.$)(l.In)
-											.attr(l.qe, n)
-											.attr(l.An, l.nc)
-											.attr(l.ac, l.rc)
-											.attr(l.hc, l.oc)
-											.attr(l.cc, l.oc)
-											.css(l._i, l.fi)
-											.css(l.li, l.fi)
-											.css(l.Oi, l.Pi);
-										this.Tu.html(t);
-									}
+									// n = new URL(n);
+									// new URLSearchParams(x).forEach(function (t, i) {
+									// 	n[ft].set(i, t);
+									// });
+									// if (this.Ml || this.z0.Il()) {
+									// 	n[ft].set(l.Be, l.Ge);
+									// }
+									// n = n[Vt]();
+									// this.Tu[rr]().not(l.$e)[P]();
+									// var t = this.Tu.find(l.$e);
+									// if (t[Tt]) {
+									// 	t.attr(l.qe, n);
+									// } else {
+									// 	t = (0, a.$)(l.In)
+									// 		.attr(l.qe, n)
+									// 		.attr(l.An, l.nc)
+									// 		.attr(l.ac, l.rc)
+									// 		.attr(l.hc, l.oc)
+									// 		.attr(l.cc, l.oc)
+									// 		.css(l._i, l.fi)
+									// 		.css(l.li, l.fi)
+									// 		.css(l.Oi, l.Pi);
+									// 	this.Tu.html(t);
+									// }
 								},
 								il: function (t) {
 									t[Kt]();
@@ -14678,7 +14742,7 @@ async function encryptionSetup() {
 			);
 		})();
 	} catch (error) {
-		console.log("Failed to run bundle.js");
+		console.warn("Failed to run bundle.js");
 		showError(error);
 		return false;
 	}
@@ -14691,6 +14755,9 @@ async function encryptionSetup() {
 
 	encrypt_ut = win.FG.ut;
 	encrypt__t = win.FG._t;
+
+	DoneEncryptionSetup = true;
+
 	return true;
 }
 
