@@ -51,27 +51,16 @@ function fetchv3(url, options = {}) {
 }
 
 // AI google cause i have no idea what this function is and on phone
-Error.prepareStackTrace = function(error, stack) {
+/*Error.prepareStackTrace = function(error, stack) {
   return stack.map(function(frame) {
     return `  at ${frame.getFunctionName() || 'anonymous'} (${frame.getFileName()}:${frame.getLineNumber()}:${frame.getColumnNumber()})`;
   }).join('\n');
-};
-
-function getStack() {
-  const obj = {};
-  if ("captureStackTrace" in Error) {
-    // Avoid getStack itself in the stack trace
-    Error.captureStackTrace(obj, getStack);
-  }
-  return obj.stack;
-}
+};*/
 
 function showError(err)
 {
-	console.error(err.message)
-	console.error(err.stack)
-	console.error(getStack())
-	}
+	console.error(`${err.message}\r\n${err.stack}`)
+}
 
 let encrypt_ut, encrypt__t;
 
