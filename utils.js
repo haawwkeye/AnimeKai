@@ -410,10 +410,10 @@ async function loadKaiCodex() {
 
 	try {
 		const res = await fetchv3(
-			"https://raw.githubusercontent.com/amarullz/kaicodex/main/generated/gen/keys.json",
-			{
-				DisableDebug: true,
-			}
+			"https://raw.githubusercontent.com/amarullz/kaicodex/main/generated/gen/keys.json"
+			// {
+			// 	DisableDebug: true,
+			// }
 		);
 		const responseText = await res.text();
 		return kaiCodexInit(JSON.parse(responseText));
