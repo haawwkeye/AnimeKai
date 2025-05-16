@@ -297,20 +297,27 @@ async function extractStreamUrl(url, streamType) {
 		let streamUrl = "";
 
 		let selectedStreamType;
+		let debugStreamType = streamType;
 
 		if (streamType === "dub" && dub.length > 0) {
 			selectedStreamType = dub;
+			debugStreamType = "dub";
 		} else if (streamType === "sub" && sub.length > 0) {
 			selectedStreamType = sub;
+			debugStreamType = "sub";
 		} else if (streamType === "softsub" && softsub.length > 0) {
 			selectedStreamType = softsub;
+			debugStreamType = "softsub";
 		} else {
 			if (sub.length > 0) {
 				selectedStreamType = sub;
+				debugStreamType = "sub";
 			} else if (softsub.length > 0) {
 				selectedStreamType = softsub;
+				debugStreamType = "softsub";
 			} else if (dub.length > 0) {
 				selectedStreamType = dub;
+				debugStreamType = "dub";
 			} else {
 				console.log(
 					"No Dub/Sub/SoftSub streams available\nPlease check again later or check the website."
@@ -318,9 +325,9 @@ async function extractStreamUrl(url, streamType) {
 			}
 		}
 
-		console.log(dub);
-		console.log(sub);
-		console.log(softsub);
+		console.log(
+			`wants: ${streamType} got: ${debugStreamType}\r\nStreamInfo | dub: ${dub.length} sub: ${sub.length} softsub: ${softsub.length}`
+		);
 
 		console.log(selectedStreamType);
 
