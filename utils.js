@@ -14613,7 +14613,8 @@ async function searchResults(keyword) {
 
 		return JSON.stringify(results);
 	} catch (error) {
-		console.log("SearchResults function error" + error);
+		console.error("SearchResults error:");
+		console.error(error)
 		return JSON.stringify([
 			{ href: "https://error.org", image: "https://error.org", title: "Error" },
 		]);
@@ -14649,7 +14650,8 @@ async function extractDetails(url) {
 
 		return JSON.stringify(details);
 	} catch (error) {
-		console.log("Details error:" + error);
+		console.error("extractDetails error:");
+		console.error(error)
 		return JSON.stringify([
 			{
 				description: "Error loading description",
@@ -14681,10 +14683,10 @@ async function extractEpisodes(url) {
 		let param = new URLSearchParams();
 
 		const aniId = idMatch ? idMatch[1] : "";
-		const token = "strict".concat(aniId);
+		// const token = aniId;
 
-		param.set("ani_id", aniId);
-		param.set("_", await GetEncryptedToken(token));
+		param.set("ani_id", encodeURIComponent(aniId));
+		param.set("_", await GetEncryptedToken(aniId));
 
 		//	aniId === "c4G4-Q"
 		//		? "Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e"
@@ -14730,7 +14732,8 @@ async function extractEpisodes(url) {
 
 		return JSON.stringify(episodes);
 	} catch (error) {
-		console.log("Fetch error:" + error);
+		console.error("extractEpisodes error:");
+		console.error(error);
 		return JSON.stringify([{ number: "-1", href: "" }]);
 	}
 }
@@ -14851,7 +14854,8 @@ async function extractStreamUrl(url, streamType) {
 
 		return streamUrl;
 	} catch (error) {
-		console.log("Fetch error:" + error);
+		console.error("extractStreamUrl error:");
+		console.error(error)
 		return "https://error.org";
 	}
 }
