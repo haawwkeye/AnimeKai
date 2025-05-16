@@ -240,7 +240,7 @@ async function extractEpisodes(url) {
 			const num = epMatch[1];
 			const token = epMatch[2];
 			const tokenEncoded = await GetEncryptedToken(token);
-			const episodeUrl = `${baseUrl}/ajax/links/list?${token}&_=${tokenEncoded}`;
+			const episodeUrl = `${baseUrl}/ajax/links/list?token=${token}&_=${tokenEncoded}`;
 
 			episodes.push({
 				href: episodeUrl,
@@ -312,13 +312,17 @@ async function extractStreamUrl(url, streamType) {
 			} else if (dub.length > 0) {
 				selectedStreamType = dub;
 			} else {
-				throw new Error(
+				console.log(
 					"No Dub/Sub/SoftSub streams available\nPlease check again later or check the website."
 				);
 			}
 		}
 
-		// console.log(selectedStreamType);
+		console.log(dub);
+		console.log(sub);
+		console.log(softsub);
+
+		console.log(selectedStreamType);
 
 		if (selectedStreamType) {
 			// Find server 1 span and extract data-lid
