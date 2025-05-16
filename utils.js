@@ -53,13 +53,6 @@ function fetchv3(url, options = {}) {
 		});
 }
 
-// AI google cause i have no idea what this function is and on phone
-/*Error.prepareStackTrace = function(error, stack) {
-  return stack.map(function(frame) {
-    return `  at ${frame.getFunctionName() || 'anonymous'} (${frame.getFileName()}:${frame.getLineNumber()}:${frame.getColumnNumber()})`;
-  }).join('\n');
-};*/
-
 function showError(err) {
 	console.error(`${err.message}\r\n${err.stack}`);
 }
@@ -70,6 +63,8 @@ let decrypt_He = undefined;
 let decrypt_Mg = undefined;
 
 let DoneEncryptionSetup = false;
+
+const baseUrl = "https://animekai.to";
 
 // THIS IS A TEMP FUNCTION (until I load it via a script instead of hardcoding it!!!)
 // This may not work as I'm going to sleep right after commiting this and then pushing tomorrow to test
@@ -90,24 +85,6 @@ async function encryptionSetup() {
 
 	return true;
 }
-
-/*
-o.$.ajaxSetup({
-	dataType: a.m,
-	beforeSend: function (t, i) {
-		var reg;
-		var url = new URL(i.url, o.ct.origin);
-		var token = url.searchParams.get("_");
-		if (token) {
-			token = (reg = RegExp.exec(decodeURIComponent(token)))[1]
-				? f.default.ut(n[2])
-				: f.default._t(n[2]);
-			url.searchParams.set("_", token);
-			i.url = s.toString();
-		}
-	},
-});
-*/
 
 // const RegExp = /^(strict)?(.*?)$/;
 
@@ -130,11 +107,10 @@ async function GetEncryptedToken(_token, notStrict) {
 async function searchResults(keyword) {
 	try {
 		const encodedKeyword = encodeURIComponent(keyword);
-		const searchUrl = `https://animekai.to/browser?keyword=${encodedKeyword}`;
+		const searchUrl = `${baseUrl}/browser?keyword=${encodedKeyword}`;
 		const response = await fetchv3(searchUrl);
 		const responseText = await response.text();
 
-		const baseUrl = "https://animekai.to";
 		const results = [];
 
 		const listRegex =
@@ -242,7 +218,7 @@ async function extractEpisodes(url) {
 		// ani_Id Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e
 		// ngl (forgor aniId)
 		// 		  Zl1OYaV_HJts5mY2W7hIbaWeZkHfEFHLCF7AKL4ekhE
-		const fetchUrlListApi = `https://animekai.to/ajax/episodes/list?ani_id=${ani_id}&_=${token}`;
+		const fetchUrlListApi = `${baseUrl}/ajax/episodes/list?ani_id=${ani_id}&_=${token}`;
 
 		const responseTextListApi = await fetchv3(fetchUrlListApi);
 		console.log(responseTextListApi);
@@ -264,7 +240,7 @@ async function extractEpisodes(url) {
 			const num = epMatch[1];
 			const token = epMatch[2];
 			const tokenEncoded = await GetEncryptedToken(token);
-			const episodeUrl = `https://animekai.to/ajax/links/list?${token}&_=${tokenEncoded}`;
+			const episodeUrl = `${baseUrl}/ajax/links/list?${token}&_=${tokenEncoded}`;
 
 			episodes.push({
 				href: episodeUrl,
@@ -354,7 +330,7 @@ async function extractStreamUrl(url, streamType) {
 
 				// TODO: I want to make a version that's for BOTH sub and dub later
 				// https://animekai.to/ajax/links/view?id=dIS48a6p6A&_=UVpJN001ckY4cHh4R3I4QVJWM2RqTFdCeFQ
-				fetchUrlServerApi = `https://animekai.to/ajax/links/view?id=${dataLid}&_=${dataLidToken}`;
+				fetchUrlServerApi = `${baseUrl}/ajax/links/view?id=${dataLid}&_=${dataLidToken}`;
 
 				// throw new Error(
 				// 	"This currently is WIP, Looking into it but it's too late..."
