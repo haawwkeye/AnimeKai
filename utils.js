@@ -14577,9 +14577,7 @@ async function searchResults(keyword) {
 	try {
 		const encodedKeyword = encodeURIComponent(keyword);
 		const searchUrl = `https://animekai.to/browser?keyword=${encodedKeyword}`;
-		const response = await fetchv3(searchUrl, {
-			DisableDebug: true
-		});
+		const response = await fetchv3(searchUrl);
 		const responseText = await response.text();
 
 		const results = [];
@@ -14625,9 +14623,7 @@ async function searchResults(keyword) {
 async function extractDetails(url) {
 	try {
 		const fetchUrl = `${url}`;
-		const response = await fetchv3(fetchUrl, {
-			DisableDebug: true
-		});
+		const response = await fetchv3(fetchUrl);
 		const responseText = await response.text();
 
 		const details = [];
