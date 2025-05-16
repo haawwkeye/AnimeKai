@@ -52,6 +52,8 @@ function fetchv3(url, options = {}) {
 
 let encrypt_ut, encrypt__t;
 
+function empty() { }
+
 // THIS IS A TEMP FUNCTION (until I load it via a script instead of hardcoding it!!!)
 // This may not work as I'm going to sleep right after commiting this and then pushing tomorrow to test
 // This is basically a 1:1 with the bundle just with a BUNCH of removed/commented out code
@@ -60,6 +62,11 @@ let encrypt_ut, encrypt__t;
 // in theory it should since the only thing I did was a simple thing anyways 
 function encryptionSetup() {
 	if (encrypt_ut !== undefined) return; // Already did this setup...
+	if (typeof setTimeout === "undefined") setTimeout = empty;
+	if (typeof clearTimeout === "undefined") clearTimeout = empty;
+	if (typeof setInterval === "undefined") setInterval = empty;
+	if (typeof clearInterval === "undefined") clearInterval; = empty;
+	if ()
 	const win = this;
 	//#region PAIN
 	(() => {
