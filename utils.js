@@ -71,60 +71,60 @@ let decrypt_Mg = undefined;
 
 function empty() {}
 
-class customSearchParams {
-	constructor(query) {
-		this.params = new Map();
+// class customSearchParams {
+// 	constructor(query) {
+// 		this.params = new Map();
 
-		if (query) {
-			// Parse query string if provided
-			if (typeof query === "string") {
-				query = query.replace(/^\?/, ""); // Remove leading ?
-				const pairs = query.split("&");
-				for (const pair of pairs) {
-					const [key, value] = pair.split("=");
-					this.append(decodeURIComponent(key), decodeURIComponent(value || ""));
-				}
-			}
-		}
-	}
+// 		if (query) {
+// 			// Parse query string if provided
+// 			if (typeof query === "string") {
+// 				query = query.replace(/^\?/, ""); // Remove leading ?
+// 				const pairs = query.split("&");
+// 				for (const pair of pairs) {
+// 					const [key, value] = pair.split("=");
+// 					this.append(decodeURIComponent(key), decodeURIComponent(value || ""));
+// 				}
+// 			}
+// 		}
+// 	}
 
-	append(name, value) {
-		const values = this.params.get(name) || [];
-		values.push(value);
-		this.params.set(name, values);
-	}
+// 	append(name, value) {
+// 		const values = this.params.get(name) || [];
+// 		values.push(value);
+// 		this.params.set(name, values);
+// 	}
 
-	delete(name) {
-		this.params.delete(name);
-	}
+// 	delete(name) {
+// 		this.params.delete(name);
+// 	}
 
-	get(name) {
-		const values = this.params.get(name);
-		return values ? values[0] : null;
-	}
+// 	get(name) {
+// 		const values = this.params.get(name);
+// 		return values ? values[0] : null;
+// 	}
 
-	getAll(name) {
-		return this.params.get(name) || [];
-	}
+// 	getAll(name) {
+// 		return this.params.get(name) || [];
+// 	}
 
-	has(name) {
-		return this.params.has(name);
-	}
+// 	has(name) {
+// 		return this.params.has(name);
+// 	}
 
-	set(name, value) {
-		this.params.set(name, [value]);
-	}
+// 	set(name, value) {
+// 		this.params.set(name, [value]);
+// 	}
 
-	toString() {
-		const pairs = [];
-		this.params.forEach((values, name) => {
-			for (const value of values) {
-				pairs.push(encodeURIComponent(name) + "=" + encodeURIComponent(value));
-			}
-		});
-		return pairs.join("&");
-	}
-}
+// 	toString() {
+// 		const pairs = [];
+// 		this.params.forEach((values, name) => {
+// 			for (const value of values) {
+// 				pairs.push(encodeURIComponent(name) + "=" + encodeURIComponent(value));
+// 			}
+// 		});
+// 		return pairs.join("&");
+// 	}
+// }
 
 let DoneEncryptionSetup = false;
 
@@ -140,14 +140,14 @@ async function encryptionSetup() {
 
 	// console.warn(encrypt_ut);
 
-	let __sp = undefined;
+	// let __sp = undefined;
 	// let __st = undefined;
 	// let __ct = undefined;
 	// let __si = undefined;
 	// let __ci = undefined;
 
-	if (typeof globalThis.URLSearchParams === "undefined")
-		__sp = customSearchParams;
+	// if (typeof globalThis.URLSearchParams === "undefined")
+	// 	__sp = customSearchParams;
 	// else __sp = globalThis.URLSearchParams;
 	// if (typeof globalThis.setTimeout === "undefined") __st = empty;
 	// else __st = globalThis.setTimeout;
@@ -159,7 +159,7 @@ async function encryptionSetup() {
 	// else __ci = globalThis.clearInterval;
 	// // throw Error("PAIN");
 
-	globalThis.URLSearchParams = __sp;
+	// globalThis.URLSearchParams = __sp;
 	// globalThis.setTimeout = __st;
 	// globalThis.clearTimeout = __ct;
 	// globalThis.setInterval = __si;
