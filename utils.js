@@ -14561,8 +14561,7 @@ const RegExp = /^(strict)?(.*?)$/;
 // nothing will happen here, just going to do some simple token setup?
 async function GetEncryptedToken(_token, notStrict) {
 
-	if (notStrict) _token = encodeURIComponent(_token)
-	else _token = encodeURIComponent(`strict${_token}`)
+	if (!notStrict) _token = `strict${_token}`
 
 	const _reg = RegExp.exec(_token);
 	const NewToken = _reg[1] ? encrypt_ut(_reg[2]) : encrypt__t(_reg[2]);
@@ -14580,8 +14579,8 @@ async function searchResults(keyword) {
 		const response = await fetchv3(searchUrl);
 		const responseText = await response.text();
 
-		const results = [];
 		const baseUrl = "https://animekai.to";
+		const results = [];
 
 		const listRegex =
 			/<div class="aitem">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/g;
@@ -14676,14 +14675,10 @@ async function extractEpisodes(url) {
 		// const aniId = idMatch ? idMatch[1] : null;
 
 		// const urlFetchToken = KAICODEX.enc(aniId);
-
-		let param = new URLSearchParams();
-
-		const aniId = idMatch ? idMatch[1] : "";
-		// const token = aniId;
-
-		param.set("ani_id", encodeURIComponent(aniId));
-		param.set("_", await GetEncryptedToken(aniId));
+		const ani_id = idMatch ? idMatch[1] : "";
+		let param = new URLSearchParams("ani_id");
+		param.set("ani_id", ani_id);
+		param.set("_", await GetEncryptedToken(ani_id));
 
 		//	aniId === "c4G4-Q"
 		//		? "Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e"
@@ -14693,9 +14688,7 @@ async function extractEpisodes(url) {
 		// ani_Id Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e
 		// ngnl (forgor aniId)
 		// 		  Zl1OYaV_HJts5mY2W7hIbaWeZkHfEFHLCF7AKL4ekhE
-		const fetchUrlListApi = `https://animekai.to/${"ajax/episodes/list?".concat(
-			param.toString()
-		)}`;
+		const fetchUrlListApi = "https://animekai.to/ajax/episodes/list?".concat(param.toString());
 
 		const responseTextListApi = await fetchv3(fetchUrlListApi);
 		console.log(responseTextListApi);
@@ -14717,9 +14710,11 @@ async function extractEpisodes(url) {
 			const num = epMatch[1];
 			const token = epMatch[2];
 			const tokenEncoded = await GetEncryptedToken(token);
-			const episodeUrl = `https://animekai.to/ajax/links/list?token=${encodeURIComponent(
-				token
-			)}&_=${tokenEncoded}`;
+
+			let param = new URLSearchParams("token");
+			param.set("token", token);
+			param.set("_", tokenEncoded);
+			const episodeUrl = "https://animekai.to/ajax/links/list?".concat(param.toString());
 
 			episodes.push({
 				href: episodeUrl,
@@ -14796,41 +14791,39 @@ async function extractStreamUrl(url, streamType) {
 			}
 		}
 
-		throw new Error("This currently is WIP, Looking into it but it's too late...")
-
+		
 		if (selectedStreamType) {
 			// Find server 1 span and extract data-lid
 			const serverSpanRegex =
-				/<span class="server"[^>]*data-lid="([^"]+)"[^>]*>Server 1<\/span>/;
+			/<span class="server"[^>]*data-lid="([^"]+)"[^>]*>Server 1<\/span>/;
 			const serverMatch = serverSpanRegex.exec(selectedStreamType);
-
+			
 			if (serverMatch && serverMatch[1]) {
 				dataLid = serverMatch[1];
 				dataLidToken = await GetEncryptedToken(dataLid);
-
+				
 				// TODO: Fix this ServerAPI sending an 403 response (Same for sub just doing dub and then copy pasting code)
 				// Hopefully this will fix it just not looking into it rn
 				// besides that I want to make a version that's for BOTH sub and dub later
 				// https://animekai.to/ajax/links/view?id=dIS48a6p6A&_=UVpJN001ckY4cHh4R3I4QVJWM2RqTFdCeFQ
-				fetchUrlServerApi = `https://animekai.to/ajax/links/view?id=${encodeURIComponent(
-					dataLid
-				)}&_=${dataLidToken}`;
-
+				fetchUrlServerApi = `https://animekai.to/ajax/links/view?id=${dataLid}&_=${dataLidToken}`;
+				
 				if (data.status !== 200)
 					throw new Error(JSON.stringify(data, null, "\t"));
-
+				
+				throw new Error("This currently is WIP, Looking into it but it's too late...")
 				const responseTextServerApi = await fetchv3(fetchUrlServerApi);
 				const dataServerApi = await responseTextServerApi.json();
-
+				
 				KaiMegaUrlJson = KAICODEX.dec(dataServerApi.result);
 				megaELinkJson = JSON.parse(KaiMegaUrlJson);
 				megaEmbeddedUrl = megaELinkJson.url;
 				megaMediaUrl = megaEmbeddedUrl.replace("/e/", "/media/");
-
+				
 				// Fetch the media url
 				const mediaUrl = await fetchv3(megaMediaUrl);
 				const mediaJson = await mediaUrl.json();
-
+				
 				streamUrlJson = mediaJson.result;
 				streamUrlJson = KAICODEX.decMega(streamUrlJson);
 				const parsedStreamData = JSON.parse(streamUrlJson);
