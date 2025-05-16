@@ -1,1 +1,2 @@
-Make megaup work
+Merge everything into a single file and do something like what the hianime extension does and allow us to pick the source we want (dub, sub, softsub)
+I can't think of anything else besides keeping it up to date
