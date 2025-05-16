@@ -489,7 +489,7 @@ function kaiCodexInit(keys) {
 		}
 		return decodeURIComponent(n);
 	}
-	globalThis.KAICODEX = {
+	this.KAICODEX = {
 		enc: encrypt$,
 		dec: decrypt$,
 		decMega: megaDec,
