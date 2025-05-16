@@ -24,7 +24,7 @@ function fetchv3(url, options = {}) {
 							return JSON.parse(response);
 						} catch (error) {
 							console.log("JSON parse error:");
-							console.log(error.stack)
+							showError(error)
 							throw new Error(`Failed to parse JSON response ${error}`);
 						}
 					},
@@ -49,6 +49,20 @@ function fetchv3(url, options = {}) {
 			);
 		});
 }
+
+// AI google cause i have no idea what this function is and on phone
+Error.prepareStackTrace = function(error, stack) {
+  return stack.map(function(frame) {
+    return `  at ${frame.getFunctionName() || 'anonymous'} (${frame.getFileName()}:${frame.getLineNumber()}:${frame.getColumnNumber()})`;
+  }).join('\n');
+};
+
+
+function showError(err)
+{
+	console.error(err.message)
+	console.error(err.stack)
+	}
 
 let encrypt_ut, encrypt__t;
 
@@ -14634,7 +14648,7 @@ async function searchResults(keyword) {
 		return JSON.stringify(results);
 	} catch (error) {
 		console.log("SearchResults error:");
-		console.log(error.stack)
+		showError(error)
 		return JSON.stringify([
 			{ href: "https://error.org", image: "https://error.org", title: "Error" },
 		]);
@@ -14669,7 +14683,7 @@ async function extractDetails(url) {
 		return JSON.stringify(details);
 	} catch (error) {
 		console.log("extractDetails error:");
-		console.log(error.stack)
+		showError(error)
 		return JSON.stringify([
 			{
 				description: "Error loading description",
@@ -14747,7 +14761,7 @@ async function extractEpisodes(url) {
 		return JSON.stringify(episodes);
 	} catch (error) {
 		console.log("extractEpisodes error:");
-		console.log(error.stack);
+		showError(error);
 		return JSON.stringify([{ number: "-1", href: "" }]);
 	}
 }
@@ -14867,7 +14881,7 @@ async function extractStreamUrl(url, streamType) {
 		return streamUrl;
 	} catch (error) {
 		console.log("extractStreamUrl error:");
-		console.log(error.stack)
+		showError(error)
 		return "https://error.org";
 	}
 }
