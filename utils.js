@@ -14560,6 +14560,8 @@ const RegExp = /^(strict)?(.*?)$/;
 
 // nothing will happen here, just going to do some simple token setup?
 async function GetEncryptedToken(_token) {
+	_token = `strict${_token}`
+
 	const _reg = RegExp.exec(_token);
 	const NewToken = _reg[1] ? encrypt_ut(_reg[2]) : encrypt__t(_reg[2]);
 
