@@ -94,7 +94,7 @@ function encryptionSetup() {
 	const clearInterval = __ci;
 	
 	//if ()????? how???
-	const win = this;
+	const win = {};
 	//#region PAIN
 try {
 	(() => {
