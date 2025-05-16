@@ -12,8 +12,8 @@ function fetchv3(url, options = {}) {
 			var isNull =
 				options.DisableDebug === undefined || options.DisableDebug === null;
 			if (isNull || DisableDebug === false) {
-				console.log("Response:");
-				console.log(response);
+				// console.log("Response:");
+				// console.log(response);
 			}
 
 			if (typeof response === "string") {
@@ -23,7 +23,7 @@ function fetchv3(url, options = {}) {
 						try {
 							return JSON.parse(response);
 						} catch (error) {
-							console.log("JSON parse error:");
+							console.error("JSON parse error:");
 							showError(error);
 							throw new Error(`Failed to parse JSON response ${error}`);
 						}
@@ -98,8 +98,8 @@ async function GetEncryptedToken(_token, notStrict) {
 	// We don't need _t anyways?
 	const NewToken = encrypt_ut(_token); //_reg[1] ? encrypt_ut(_reg[2]) : encrypt__t(_reg[2]);
 
-	console.log(_token);
-	console.log(NewToken);
+	// console.log(_token);
+	// console.log(NewToken);
 
 	return NewToken;
 }
@@ -221,7 +221,7 @@ async function extractEpisodes(url) {
 		const fetchUrlListApi = `${baseUrl}/ajax/episodes/list?ani_id=${ani_id}&_=${token}`;
 
 		const responseTextListApi = await fetchv3(fetchUrlListApi);
-		console.log(responseTextListApi);
+		// console.log(responseTextListApi);
 		const data = await responseTextListApi.json();
 
 		if (data.status !== 200) throw new Error(JSON.stringify(data, null, "\t"));
@@ -318,7 +318,7 @@ async function extractStreamUrl(url, streamType) {
 			}
 		}
 
-		console.log(selectedStreamType);
+		// console.log(selectedStreamType);
 
 		if (selectedStreamType) {
 			// Find server 1 span and extract data-lid
@@ -349,10 +349,10 @@ async function extractStreamUrl(url, streamType) {
 
 				streamUrlJson = mediaJson.result;
 				streamUrlJson = decrypt_Mg(streamUrlJson);
-				console.log(streamUrlJson);
+				// console.log(streamUrlJson);
 				const parsedStreamData = JSON.parse(streamUrlJson);
 
-				console.log(parsedStreamData);
+				// console.log(parsedStreamData);
 
 				if (
 					parsedStreamData &&
@@ -418,7 +418,8 @@ async function loadKaiCodex() {
 		const responseText = await res.text();
 		return kaiCodexInit(JSON.parse(responseText));
 	} catch (error) {
-		console.log("Load Kaicodex error:" + error);
+		console.error("Load Kaicodex error:");
+		showError(error);
 	}
 }
 
@@ -476,7 +477,7 @@ function kaiCodexInit(keys) {
 		n = n.replace(/_/g, "/").replace(/-/g, "+");
 		var kl = megaKeys[0].length;
 		for (var j = 1; j < kl; j++) {
-			console.log("ATOB = " + j + " -> " + n);
+			// console.log("ATOB = " + j + " -> " + n);
 			n = atob(n);
 			var o = [];
 			var l = n.length;
