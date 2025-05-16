@@ -62,7 +62,8 @@ function showError(err)
 	console.error(`${err.message}\r\n${err.stack}`)
 }
 
-let encrypt_ut, encrypt__t;
+let encrypt_ut = undefined
+let encrypt__t = undefined
 
 function empty() { }
 
