@@ -23,7 +23,8 @@ function fetchv3(url, options = {}) {
 						try {
 							return JSON.parse(response);
 						} catch (error) {
-							console.error("JSON parse error:", error);
+							console.log("JSON parse error:");
+							console.log(error)
 							throw new Error(`Failed to parse JSON response ${error}`);
 						}
 					},
@@ -42,7 +43,7 @@ function fetchv3(url, options = {}) {
 		})
 		.catch((error) => {
 			throw (
-				(console.error("Fetch error:", error),
+				(console.log("Fetch error:", error),
 					showMessage("Fetch Error", "error", error.message),
 					error)
 			);
@@ -14613,8 +14614,8 @@ async function searchResults(keyword) {
 
 		return JSON.stringify(results);
 	} catch (error) {
-		console.error("SearchResults error:");
-		console.error(error)
+		console.log("SearchResults error:");
+		console.log(error)
 		return JSON.stringify([
 			{ href: "https://error.org", image: "https://error.org", title: "Error" },
 		]);
@@ -14650,8 +14651,8 @@ async function extractDetails(url) {
 
 		return JSON.stringify(details);
 	} catch (error) {
-		console.error("extractDetails error:");
-		console.error(error)
+		console.log("extractDetails error:");
+		console.log(error)
 		return JSON.stringify([
 			{
 				description: "Error loading description",
@@ -14732,8 +14733,8 @@ async function extractEpisodes(url) {
 
 		return JSON.stringify(episodes);
 	} catch (error) {
-		console.error("extractEpisodes error:");
-		console.error(error);
+		console.log("extractEpisodes error:");
+		console.log(error);
 		return JSON.stringify([{ number: "-1", href: "" }]);
 	}
 }
@@ -14854,8 +14855,8 @@ async function extractStreamUrl(url, streamType) {
 
 		return streamUrl;
 	} catch (error) {
-		console.error("extractStreamUrl error:");
-		console.error(error)
+		console.log("extractStreamUrl error:");
+		console.log(error)
 		return "https://error.org";
 	}
 }
