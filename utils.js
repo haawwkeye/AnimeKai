@@ -325,11 +325,11 @@ async function extractStreamUrl(url, streamType) {
 			}
 		}
 
-		console.log(
-			`wants: ${streamType} got: ${debugStreamType}\r\nStreamInfo | dub: ${dub.length} sub: ${sub.length} softsub: ${softsub.length}`
-		);
+		// console.log(
+		// 	`wants: ${streamType} got: ${debugStreamType}\r\nStreamInfo | dub: ${dub.length} sub: ${sub.length} softsub: ${softsub.length}`
+		// );
 
-		console.log(selectedStreamType);
+		// console.log(selectedStreamType);
 
 		if (selectedStreamType) {
 			// Find server 1 span and extract data-lid
