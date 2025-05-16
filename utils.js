@@ -94,7 +94,7 @@ function encryptionSetup() {
 	const clearInterval = __ci;
 	
 	//if ()????? how???
-	const win = {};
+	const win = this;
 	//#region PAIN
 try {
 	(() => {
@@ -14567,14 +14567,16 @@ try {
 	} catch (error) {
 		console.log("Pain")
 		showError(error)
+		return false
 	}
 	//#endregion
 	// End of PAIN
 
 	console.log(win.FG) // Simple check for me later
 
-	this.encrypt_ut = win.FG.ut;
-	this.encrypt__t = win.FG._t;
+	encrypt_ut = win.FG.ut;
+	encrypt__t = win.FG._t;
+	return true
 }
 
 /*
