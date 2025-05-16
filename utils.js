@@ -57,11 +57,20 @@ Error.prepareStackTrace = function(error, stack) {
   }).join('\n');
 };
 
+function getStack() {
+  const obj = {};
+  if ("captureStackTrace" in Error) {
+    // Avoid getStack itself in the stack trace
+    Error.captureStackTrace(obj, getStack);
+  }
+  return obj.stack;
+}
 
 function showError(err)
 {
 	console.error(err.message)
 	console.error(err.stack)
+	console.error(getStack())
 	}
 
 let encrypt_ut, encrypt__t;
