@@ -43,8 +43,7 @@ function fetchv0(url, options = {}) {
 async function GetUtils() {
 	if (typeof IsAKULoaded === "undefined") {
 		try {
-			const url =
-				"https://raw.githubusercontent.com/haawwkeye/AnimeKai/refs/heads/main/utils.js";
+			const url = `https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/utils.js?v=${Date.now()}`;
 			const response = await fetchv0(url);
 			const scriptText = await response.text();
 			(0, eval)(scriptText);
