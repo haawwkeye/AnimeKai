@@ -318,6 +318,8 @@ async function extractStreamUrl(url, streamType) {
 			}
 		}
 
+		console.log(selectedStreamType);
+
 		if (selectedStreamType) {
 			// Find server 1 span and extract data-lid
 			const serverSpanRegex =
@@ -329,12 +331,8 @@ async function extractStreamUrl(url, streamType) {
 				dataLidToken = await GetEncryptedToken(dataLid);
 
 				// TODO: I want to make a version that's for BOTH sub and dub later
-				// https://animekai.to/ajax/links/view?id=dIS48a6p6A&_=UVpJN001ckY4cHh4R3I4QVJWM2RqTFdCeFQ
 				fetchUrlServerApi = `${baseUrl}/ajax/links/view?id=${dataLid}&_=${dataLidToken}`;
 
-				// throw new Error(
-				// 	"This currently is WIP, Looking into it but it's too late..."
-				// );
 				const responseTextServerApi = await fetchv3(fetchUrlServerApi);
 				const dataServerApi = await responseTextServerApi.json();
 				if (dataServerApi.status !== 200)
@@ -354,6 +352,8 @@ async function extractStreamUrl(url, streamType) {
 				console.log(streamUrlJson);
 				const parsedStreamData = JSON.parse(streamUrlJson);
 
+				console.log(parsedStreamData);
+
 				if (
 					parsedStreamData &&
 					parsedStreamData.sources &&
@@ -361,7 +361,7 @@ async function extractStreamUrl(url, streamType) {
 				) {
 					streamUrl = parsedStreamData.sources[0].file;
 				} else {
-					console.log(
+					throw new Error(
 						"No stream sources found in the response" + parsedStreamData
 					);
 				}
