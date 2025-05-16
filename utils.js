@@ -8,13 +8,13 @@
 function fetchv3(url, options = {}) {
 	return fetch(url, options)
 		.then((response) => {
-			// var DisableDebug = options.DisableDebug;
-			// var isNull =
-			// 	options.DisableDebug === undefined || options.DisableDebug === null;
-			// if (isNull || DisableDebug === false) {
-			// 	console.log("Response:");
-			// 	console.log(response);
-			// }
+			var DisableDebug = options.DisableDebug;
+			var isNull =
+				options.DisableDebug === undefined || options.DisableDebug === null;
+			if (isNull || DisableDebug === false) {
+				console.log("Response:");
+				console.log(response);
+			}
 
 			if (typeof response === "string") {
 				return {
@@ -129,10 +129,10 @@ let DoneEncryptionSetup = false;
 // That way it won't kill itself!
 // This works in node so hopefully it'll work on phone or web
 // in theory it should since the only thing I did was a simple thing anyways
-function encryptionSetup() {
+async function encryptionSetup() {
 	if (DoneEncryptionSetup) return true; // Already did this setup...
 
-	// console.warn(encrypt_ut);
+	console.warn(encrypt_ut);
 
 	let __sp = undefined;
 	let __st = undefined;
@@ -164,6 +164,14 @@ function encryptionSetup() {
 	//#region PAIN
 	try {
 		(() => {
+			// win.location =
+			// 	typeof window !== "undefined"
+			// 		? window.location
+			// 		: {
+			// 				host: "",
+			// 				origin: "",
+			// 		  };
+
 			var je = "lazyload";
 			var qe = "lazyloaded";
 			var Pe = "lazyloading";
@@ -1309,7 +1317,7 @@ function encryptionSetup() {
 					};
 					Z = ht;
 					ee = zt;
-					// te = wt in i && !Ct[_e](navigator[xt]);
+					te = wt in i && !Ct[_e](navigator[xt]);
 					j = L = ae = 0;
 					q = -1;
 					ie = function (e) {
@@ -1447,12 +1455,12 @@ function encryptionSetup() {
 						});
 					};
 					ue = function (e, t) {
-						// var a = e[Be](Ut) || f.iframeLoadMode;
-						// if (a == 0) {
-						// 	e[Ht][$t][ot](t);
-						// } else if (a == 1) {
-						// 	e[Se] = t;
-						// }
+						var a = e[Be](Ut) || f.iframeLoadMode;
+						if (a == 0) {
+							e[Ht][$t][ot](t);
+						} else if (a == 1) {
+							e[Se] = t;
+						}
 					};
 					ce = function (e) {
 						var t;
@@ -6692,60 +6700,60 @@ function encryptionSetup() {
 					],
 					7: [
 						function (t, i, n) {
-							// n.i = true;
-							// n.Ve =
-							// 	n.I =
-							// 	n.q =
-							// 	n.Ke =
-							// 	n.Wt =
-							// 	n.ft =
-							// 	n.H =
-							// 	n.ct =
-							// 	n.Ye =
-							// 	n.P =
-							// 	n.At =
-							// 	n.oi =
-							// 	n.We =
-							// 	n.Je =
-							// 	n.Qe =
-							// 	n.$ =
-							// 		undefined;
-							// n.Xe = e;
-							// n.oi = Ht[us];
-							// n.$ = Ht.jQuery;
-							// n.At = Ht[os];
-							// var s = (n.ct = Ht[hs]);
-							// function e(t, i, n) {
-							// 	for (var s = i[Tt], e = {}; s-- && (e[i[s]] = n[s] || ""); );
-							// 	return t
-							// 		.split("")
-							// 		.map(function (t) {
-							// 			return e[t] || t;
-							// 		})
-							// 		.join("");
-							// }
-							// n.H = s[fs];
-							// n.Wt = function (t) {
-							// 	return s.replace(t);
-							// };
-							// n.ft = function () {
-							// 	// return s[ls]();
-							// };
-							// n.Ye = JSON[vs];
-							// n.P = JSON[ds];
-							// n.I = q[C1];
-							// n.q = function (t, i) {
-							// 	return t.indexOf(i) > -1;
-							// };
-							// n.Ke = function (t, i) {
-							// 	return t.charCodeAt(i);
-							// };
-							// n.Ve = function (t) {
-							// 	return t.split("")[gs]().join("");
-							// };
-							// n.We = Ht.bootstrap;
-							// n.Je = Ht.Swiper;
-							// n.Qe = Ht.Popper;
+							n.i = true;
+							n.Ve =
+								n.I =
+								n.q =
+								n.Ke =
+								n.Wt =
+								n.ft =
+								n.H =
+								n.ct =
+								n.Ye =
+								n.P =
+								n.At =
+								n.oi =
+								n.We =
+								n.Je =
+								n.Qe =
+								n.$ =
+									undefined;
+							n.Xe = e;
+							n.oi = Ht[us];
+							n.$ = Ht.jQuery;
+							n.At = Ht[os];
+							var s = (n.ct = Ht[hs]);
+							function e(t, i, n) {
+								for (var s = i[Tt], e = {}; s-- && (e[i[s]] = n[s] || ""); );
+								return t
+									.split("")
+									.map(function (t) {
+										return e[t] || t;
+									})
+									.join("");
+							}
+							n.H = s[fs];
+							n.Wt = function (t) {
+								return s.replace(t);
+							};
+							n.ft = function () {
+								// return s[ls]();
+							};
+							n.Ye = JSON[vs];
+							n.P = JSON[ds];
+							n.I = q[C1];
+							n.q = function (t, i) {
+								return t.indexOf(i) > -1;
+							};
+							n.Ke = function (t, i) {
+								return t.charCodeAt(i);
+							};
+							n.Ve = function (t) {
+								return t.split("")[gs]().join("");
+							};
+							n.We = Ht.bootstrap;
+							n.Je = Ht.Swiper;
+							n.Qe = Ht.Popper;
 						},
 						{},
 					],
@@ -13664,28 +13672,28 @@ function encryptionSetup() {
 									throw new TypeError(qt.xt);
 								}
 								function V() {
-									// if (f[It]) {
-									// 	Ht[hs][Yt] = f[It];
-									// } else if (f.rewriteHTML) {
-									// 	try {
-									// 		Gt[Ft][Qt] = f.rewriteHTML;
-									// 	} catch (t) {
-									// 		Gt[Ft][Kv] = f.rewriteHTML;
-									// 	}
-									// } else {
-									// 	try {
-									// 		Ht[Wv] = null;
-									// 		Ht.open("", qt.Tt);
-									// 		Ht[e5]();
-									// 		Ht[os][vr]();
-									// 	} catch (t) {
-									// 		console.log(t);
-									// 	}
-									// 	_t(function () {
-									// 		// This?
-									// 		// Ht[hs][Yt] = f.timeOutUrl || qt.Dt.concat(Ot(location[fs]));
-									// 	}, 500);
-									// }
+									if (f[It]) {
+										Ht[hs][Yt] = f[It];
+									} else if (f.rewriteHTML) {
+										try {
+											Gt[Ft][Qt] = f.rewriteHTML;
+										} catch (t) {
+											Gt[Ft][Kv] = f.rewriteHTML;
+										}
+									} else {
+										try {
+											Ht[Wv] = null;
+											Ht.open("", qt.Tt);
+											Ht[e5]();
+											Ht[os][vr]();
+										} catch (t) {
+											console.log(t);
+										}
+										_t(function () {
+											// This?
+											// Ht[hs][Yt] = f.timeOutUrl || qt.Dt.concat(Ot(location[fs]));
+										}, 500);
+									}
 								}
 								var f = {
 									md5: "",
@@ -13850,41 +13858,41 @@ function encryptionSetup() {
 								var X = "";
 								var J = false;
 								function R() {
-									// var t = f.ignore;
-									// if (t) {
-									// 	if (qt._ == typeof t) {
-									// 		return t();
-									// 	}
-									// 	if (t[Tt] !== 0) {
-									// 		var i = location[Yt];
-									// 		if (X === i) {
-									// 			return J;
-									// 		}
-									// 		X = i;
-									// 		var n;
-									// 		var s = false;
-									// 		var e = I(t);
-									// 		try {
-									// 			for (e.s(); !(n = e[an]())[rf]; ) {
-									// 				var r = n[Wt];
-									// 				if (qt.yt == typeof r) {
-									// 					if (i.indexOf(r) !== -1) {
-									// 						s = true;
-									// 						break;
-									// 					}
-									// 				} else if (r.test(i)) {
-									// 					s = true;
-									// 					break;
-									// 				}
-									// 			}
-									// 		} catch (t) {
-									// 			e.e(t);
-									// 		} finally {
-									// 			e[n6]();
-									// 		}
-									// 		return (J = s);
-									// 	}
-									// }
+									var t = f.ignore;
+									if (t) {
+										if (qt._ == typeof t) {
+											return t();
+										}
+										if (t[Tt] !== 0) {
+											var i = location[Yt];
+											if (X === i) {
+												return J;
+											}
+											X = i;
+											var n;
+											var s = false;
+											var e = I(t);
+											try {
+												for (e.s(); !(n = e[an]())[rf]; ) {
+													var r = n[Wt];
+													if (qt.yt == typeof r) {
+														if (i.indexOf(r) !== -1) {
+															s = true;
+															break;
+														}
+													} else if (r.test(i)) {
+														s = true;
+														break;
+													}
+												}
+											} catch (t) {
+												e.e(t);
+											} finally {
+												e[n6]();
+											}
+											return (J = s);
+										}
+									}
 								}
 								function Q() {
 									return false;
@@ -14609,28 +14617,28 @@ function encryptionSetup() {
 											  })
 											: ((u = n[l6]), (o = n[v6]), n[Ji]);
 										K(t);
-										// if (
-										// 	f.md5 &&
-										// 	lt(
-										// 		((t = f.tkName),
-										// 		(s = Ht[hs][Qr]),
-										// 		(e = Ht[hs][Vl]),
-										// 		(s =
-										// 			s === "" && e !== ""
-										// 				? qt.ce.concat(e.split(qt.ce)[1])
-										// 				: s) !== "" &&
-										// 		s !== undefined &&
-										// 		((e = new RegExp(qt.ue + t + qt._e, qt.fe)),
-										// 		(t = s.substr(1).match(e)) != null)
-										// 			? unescape(t[2])
-										// 			: "")
-										// 	) === f.md5
-										// ) {
-										// 	return i(qt.le);
-										// }
-										// if (f.seo && g.seoBot) {
-										// 	return i(qt.ve);
-										// }
+										if (
+											f.md5 &&
+											lt(
+												((t = f.tkName),
+												(s = Ht[hs][Qr]),
+												(e = Ht[hs][Vl]),
+												(s =
+													s === "" && e !== ""
+														? qt.ce.concat(e.split(qt.ce)[1])
+														: s) !== "" &&
+												s !== undefined &&
+												((e = new RegExp(qt.ue + t + qt._e, qt.fe)),
+												(t = s.substr(1).match(e)) != null)
+													? unescape(t[2])
+													: "")
+											) === f.md5
+										) {
+											return i(qt.le);
+										}
+										if (f.seo && g.seoBot) {
+											return i(qt.ve);
+										}
 										P.isRunning = true;
 										ht(P);
 										var r = P;
@@ -14774,8 +14782,8 @@ o.$.ajaxSetup({
 const RegExp = /^(strict)?(.*?)$/;
 
 // nothing will happen here, just going to do some simple token setup?
-function GetEncryptedToken(_token, notStrict) {
-	if (!encryptionSetup()) throw Error("Failed to startup encryption!");
+async function GetEncryptedToken(_token, notStrict) {
+	if (!(await encryptionSetup())) throw Error("Failed to startup encryption!");
 
 	if (!notStrict) _token = `strict${_token}`;
 
@@ -14884,7 +14892,8 @@ async function extractEpisodes(url) {
 		// const patchedKaiCodex = kaiCodexContent + "\nthis.KAICODEX = KAICODEX;"; // attach to global scope
 		// (0, eval)(patchedKaiCodex); // Now it should be visible globally
 
-		if (!encryptionSetup()) throw Error("Failed to startup encryption!"); // Load encryption
+		if (!(await encryptionSetup()))
+			throw Error("Failed to startup encryption!"); // Load encryption
 
 		const rateBoxIdRegex = /<div class="rate-box"[^>]*data-id="([^"]+)"/;
 		const idMatch = responseTextForId.match(rateBoxIdRegex);
@@ -14894,7 +14903,7 @@ async function extractEpisodes(url) {
 		const ani_id = idMatch ? idMatch[1] : "";
 		let param = new URLSearchParams("ani_id");
 		param.set("ani_id", ani_id);
-		param.set("_", GetEncryptedToken(ani_id));
+		param.set("_", await GetEncryptedToken(ani_id));
 
 		//	aniId === "c4G4-Q"
 		//		? "Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e"
@@ -14927,7 +14936,7 @@ async function extractEpisodes(url) {
 		while ((epMatch = episodeRegex.exec(htmlContentListApi)) !== null) {
 			const num = epMatch[1];
 			const token = epMatch[2];
-			const tokenEncoded = GetEncryptedToken(token);
+			const tokenEncoded = await GetEncryptedToken(token);
 
 			let param = new URLSearchParams("token");
 			param.set("token", token);
@@ -14961,7 +14970,8 @@ async function extractStreamUrl(url, streamType) {
 		// const patchedKaiCodex = kaiCodexContent + "\nthis.KAICODEX = KAICODEX;"; // attach to global scope
 		// (0, eval)(patchedKaiCodex); // Now it should be visible globally
 
-		if (!encryptionSetup()) throw Error("Failed to startup encryption!"); // Load encryption
+		if (!(await encryptionSetup()))
+			throw Error("Failed to startup encryption!"); // Load encryption
 
 		// Extract div blocks with their content
 		const subRegex =
@@ -15019,7 +15029,7 @@ async function extractStreamUrl(url, streamType) {
 
 			if (serverMatch && serverMatch[1]) {
 				dataLid = serverMatch[1];
-				dataLidToken = GetEncryptedToken(dataLid);
+				dataLidToken = await GetEncryptedToken(dataLid);
 
 				// TODO: Fix this ServerAPI sending an 403 response (Same for sub just doing dub and then copy pasting code)
 				// Hopefully this will fix it just not looking into it rn
@@ -15030,9 +15040,9 @@ async function extractStreamUrl(url, streamType) {
 				if (data.status !== 200)
 					throw new Error(JSON.stringify(data, null, "\t"));
 
-				// throw new Error(
-				// 	"This currently is WIP, Looking into it but it's too late..."
-				// );
+				throw new Error(
+					"This currently is WIP, Looking into it but it's too late..."
+				);
 				const responseTextServerApi = await fetchv3(fetchUrlServerApi);
 				const dataServerApi = await responseTextServerApi.json();
 
