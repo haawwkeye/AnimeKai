@@ -14685,8 +14685,6 @@ async function encryptionSetup() {
 	//#endregion
 	// End of PAIN
 
-	alert("Done?");
-
 	console.log("done?");
 	// console.log(this.FG);
 	// console.log(win.FG); // Simple check for me later
