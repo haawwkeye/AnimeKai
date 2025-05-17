@@ -411,7 +411,7 @@ async function extractStreamUrl(url) {
 			subtitles: subtitles,
 		};
 
-		return result;
+		return JSON.stringify(result);
 	} catch (error) {
 		console.error("extractStreamUrl error:");
 		showError(error);
