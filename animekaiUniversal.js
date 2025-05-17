@@ -351,7 +351,9 @@ async function extractStreamUrl(url) {
 					parsedStreamData.tracks.length > 0
 				) {
 					const subtitleTrack = parsedStreamData.tracks.find(
-						(track) => track.label === "English" && track.kind === "captions"
+						(track) =>
+							track.label.toLowerCase().includes("english") &&
+							track.kind.toLowerCase() === "captions"
 					);
 					if (subtitleTrack) {
 						subtitles = subtitleTrack.file;
