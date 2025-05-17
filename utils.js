@@ -340,8 +340,6 @@ async function extractStreamUrl(url, streamType) {
 			if (serverMatch && serverMatch[1]) {
 				dataLid = serverMatch[1];
 				dataLidToken = await GetEncryptedToken(dataLid);
-
-				// TODO: I want to make a version that's for BOTH sub and dub later
 				fetchUrlServerApi = `${baseUrl}/ajax/links/view?id=${dataLid}&_=${dataLidToken}`;
 
 				const responseTextServerApi = await fetchv3(fetchUrlServerApi);

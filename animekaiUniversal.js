@@ -308,8 +308,6 @@ async function extractStreamUrl(url) {
 			if (serverMatch && serverMatch[1]) {
 				dataLid = serverMatch[1];
 				dataLidToken = await GetEncryptedToken(dataLid);
-
-				// TODO: I want to make a version that's for BOTH sub and dub later
 				fetchUrlServerApi = `${baseUrl}/ajax/links/view?id=${dataLid}&_=${dataLidToken}`;
 
 				const responseTextServerApi = await fetchv3(fetchUrlServerApi);
@@ -331,7 +329,7 @@ async function extractStreamUrl(url) {
 
 				const parsedStreamData = JSON.parse(streamUrlJson);
 
-				console.log(streamUrlJson); // oops! I can't get info from [Object object] or whatever it was called
+				// console.log(streamUrlJson); // oops! I can't get info from [Object object] or whatever it was called
 
 				if (
 					parsedStreamData &&
