@@ -331,7 +331,7 @@ async function extractStreamUrl(url) {
 
 				const parsedStreamData = JSON.parse(streamUrlJson);
 
-				// console.log(streamUrlJson); // oops! I can't get info from [Object object] or whatever it was called
+				console.log(streamUrlJson); // oops! I can't get info from [Object object] or whatever it was called
 
 				if (
 					parsedStreamData &&
@@ -345,7 +345,11 @@ async function extractStreamUrl(url) {
 					);
 				}*/
 
-				if (parsedStreamData.tracks && parsedStreamData.tracks.length > 0) {
+				if (
+					parsedStreamData &&
+					parsedStreamData.tracks &&
+					parsedStreamData.tracks.length > 0
+				) {
 					const subtitleTrack = parsedStreamData.tracks.find(
 						(track) => track.label === "English" && track.kind === "captions"
 					);
