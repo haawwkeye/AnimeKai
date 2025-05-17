@@ -331,6 +331,8 @@ async function extractStreamUrl(url) {
 
 				const parsedStreamData = JSON.parse(streamUrlJson);
 
+				console.log(parsedStreamData);
+
 				if (
 					parsedStreamData &&
 					parsedStreamData.sources &&
@@ -343,17 +345,17 @@ async function extractStreamUrl(url) {
 					);
 				}*/
 
-				if (
-					parsedStreamData.data.tracks &&
-					parsedStreamData.data.tracks.length > 0
-				) {
-					const subtitleTrack = parsedStreamData.data.tracks.find(
-						(track) => track.label === "English" && track.kind === "captions"
-					);
-					if (subtitleTrack) {
-						subtitles = subtitleTrack.file;
-					}
-				}
+				// if (
+				// 	parsedStreamData.data.tracks &&
+				// 	parsedStreamData.data.tracks.length > 0
+				// ) {
+				// 	const subtitleTrack = parsedStreamData.data.tracks.find(
+				// 		(track) => track.label === "English" && track.kind === "captions"
+				// 	);
+				// 	if (subtitleTrack) {
+				// 		subtitles = subtitleTrack.file;
+				// 	}
+				// }
 
 				return streamUrl;
 			}
