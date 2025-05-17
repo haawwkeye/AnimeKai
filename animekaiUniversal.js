@@ -331,7 +331,7 @@ async function extractStreamUrl(url) {
 
 				const parsedStreamData = JSON.parse(streamUrlJson);
 
-				console.log(parsedStreamData);
+				console.log(streamUrlJson); // oops! I can't get info from [Object object] or whatever it was called
 
 				if (
 					parsedStreamData &&
@@ -375,7 +375,7 @@ async function extractStreamUrl(url) {
 		}
 		if (sub.length > 0) {
 			try {
-				const streamUrl = await GetStreamURL(dub);
+				const streamUrl = await GetStreamURL(sub);
 				if (streamUrl) {
 					streams.push("HARD SUB");
 					streams.push(streamUrl);
