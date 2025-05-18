@@ -58,7 +58,6 @@ function showError(err) {
 }
 
 let encrypt_ut = undefined;
-// let encrypt__t = undefined;
 let decrypt_He = undefined;
 let decrypt_Mg = undefined;
 
@@ -76,10 +75,9 @@ async function encryptionSetup() {
 	if (DoneEncryptionSetup) return true; // Already did this setup...
 	await loadKaiCodex(); // Load KaiCodex
 
-	encrypt_ut = KAICODEX.enc; //win.FG.ut;
-	// encrypt__t = win.FG._t; // not needed!
-	decrypt_He = KAICODEX.dec; //win.FG.He;
-	decrypt_Mg = KAICODEX.decMega; //vrfMegaDecode; // that doesn't work but this does!
+	encrypt_ut = KAICODEX.enc; //! f[G].ut;
+	decrypt_He = KAICODEX.dec; //! r.M.He;
+	decrypt_Mg = KAICODEX.decMega; //! Unknown name in bundle.js
 
 	DoneEncryptionSetup = true;
 
@@ -195,29 +193,15 @@ async function extractEpisodes(url) {
 		const repsonse = await fetchv3(fetchUrlForId);
 		const responseTextForId = await repsonse.text();
 
-		// const kaiCodexContent = await loadKaiCodex();
-		// const patchedKaiCodex = kaiCodexContent + "\nthis.KAICODEX = KAICODEX;"; // attach to global scope
-		// (0, eval)(patchedKaiCodex); // Now it should be visible globally
-
 		if (!(await encryptionSetup()))
 			throw Error("Failed to startup encryption!"); // Load encryption
 
 		const rateBoxIdRegex = /<div class="rate-box"[^>]*data-id="([^"]+)"/;
 		const idMatch = responseTextForId.match(rateBoxIdRegex);
-		// const aniId = idMatch ? idMatch[1] : null;
 
-		// const urlFetchToken = KAICODEX.enc(aniId);
 		const ani_id = idMatch ? idMatch[1] : "";
 		const token = await GetEncryptedToken(ani_id);
 
-		//	aniId === "c4G4-Q"
-		//		? "Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e"
-		//		: KAICODEX.enc(aniId);
-
-		// aniId c4G4-Q
-		// ani_Id Zl1OYaV_HJs5uEQ3W6wWbfy1ntDOCA1e
-		// ngl (forgor aniId)
-		// 		  Zl1OYaV_HJts5mY2W7hIbaWeZkHfEFHLCF7AKL4ekhE
 		const fetchUrlListApi = `${baseUrl}/ajax/episodes/list?ani_id=${ani_id}&_=${token}`;
 
 		const responseTextListApi = await fetchv3(fetchUrlListApi);
@@ -263,10 +247,6 @@ async function extractStreamUrl(url, streamType) {
 		const text = await reponse.text();
 		const cleanedHtml = cleanJsonHtml(text);
 
-		// const kaiCodexContent = await loadKaiCodex();
-		// const patchedKaiCodex = kaiCodexContent + "\nthis.KAICODEX = KAICODEX;"; // attach to global scope
-		// (0, eval)(patchedKaiCodex); // Now it should be visible globally
-
 		if (!(await encryptionSetup()))
 			throw Error("Failed to startup encryption!"); // Load encryption
 
@@ -286,15 +266,6 @@ async function extractStreamUrl(url, streamType) {
 		const sub = subMatch ? subMatch[1].trim() : "";
 		const softsub = softsubMatch ? softsubMatch[1].trim() : "";
 		const dub = dubMatch ? dubMatch[1].trim() : "";
-
-		let dataLid = "";
-		let fetchUrlServerApi = "";
-		let KaiMegaUrlJson = "";
-		let megaELinkJson = "";
-		let megaEmbeddedUrl = "";
-		let megaMediaUrl = "";
-		let streamUrlJson = "";
-		let streamUrl = "";
 
 		let selectedStreamType;
 		let debugStreamType = streamType;
@@ -325,13 +296,17 @@ async function extractStreamUrl(url, streamType) {
 			}
 		}
 
-		// console.log(
-		// 	`wants: ${streamType} got: ${debugStreamType}\r\nStreamInfo | dub: ${dub.length} sub: ${sub.length} softsub: ${softsub.length}`
-		// );
+		let subtitles = "";
 
-		// console.log(selectedStreamType);
-
-		if (selectedStreamType) {
+		async function GetStreamURL(selectedStreamType) {
+			let dataLid = "";
+			let fetchUrlServerApi = "";
+			let KaiMegaUrlJson = "";
+			let megaELinkJson = "";
+			let megaEmbeddedUrl = "";
+			let megaMediaUrl = "";
+			let streamUrlJson = "";
+			let streamUrl = "";
 			// Find server 1 span and extract data-lid
 			const serverSpanRegex =
 				/<span class="server"[^>]*data-lid="([^"]+)"[^>]*>Server 1<\/span>/;
@@ -358,10 +333,10 @@ async function extractStreamUrl(url, streamType) {
 
 				streamUrlJson = mediaJson.result;
 				streamUrlJson = decrypt_Mg(streamUrlJson);
-				// console.log(streamUrlJson);
+
 				const parsedStreamData = JSON.parse(streamUrlJson);
 
-				// console.log(parsedStreamData);
+				// console.log(streamUrlJson); // oops! I can't get info from [Object object] or whatever it was called
 
 				if (
 					parsedStreamData &&
@@ -369,15 +344,43 @@ async function extractStreamUrl(url, streamType) {
 					parsedStreamData.sources.length > 0
 				) {
 					streamUrl = parsedStreamData.sources[0].file;
-				} else {
+				} /*else {
 					throw new Error(
 						"No stream sources found in the response" + parsedStreamData
 					);
+				}*/
+
+				if (
+					parsedStreamData &&
+					parsedStreamData.tracks &&
+					parsedStreamData.tracks.length > 0
+				) {
+					const subtitleTrack = parsedStreamData.tracks.find(
+						(track) =>
+							track.kind.toLowerCase() === "captions" &&
+							track.label.toLowerCase().includes("english")
+					);
+					if (subtitleTrack) {
+						subtitles = subtitleTrack.file;
+					}
 				}
+
+				return streamUrl;
 			}
 		}
 
-		return streamUrl;
+		// console.log(
+		// 	`wants: ${streamType} got: ${debugStreamType}\r\nStreamInfo | dub: ${dub.length} sub: ${sub.length} softsub: ${softsub.length}`
+		// );
+
+		const streamUrl = await GetStreamURL(selectedStreamType);
+
+		const result = {
+			streams: streamUrl,
+			subtitles: subtitles,
+		};
+
+		return JSON.stringify(result);
 	} catch (error) {
 		console.error("extractStreamUrl error:");
 		showError(error);
@@ -420,9 +423,6 @@ async function loadKaiCodex() {
 	try {
 		const res = await fetchv3(
 			"https://raw.githubusercontent.com/amarullz/kaicodex/main/generated/gen/keys.json"
-			// {
-			// 	DisableDebug: true,
-			// }
 		);
 		const responseText = await res.text();
 		return kaiCodexInit(JSON.parse(responseText));
