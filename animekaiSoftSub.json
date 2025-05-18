@@ -1,17 +1,17 @@
 {
-	"sourceName": "AnimeKai (DUB)",
+	"sourceName": "AnimeKai (SOFT SUB)",
 	"iconUrl": "https://raw.githubusercontent.com/50n50/sources/refs/heads/main/animekai/iconalt.png",
 	"author": {
 		"name": "Hawk",
 		"icon": "https://avatars.githubusercontent.com/u/30607615?v=4"
 	},
-	"version": "2.0.14",
-	"language": "English (DUB)",
+	"version": "2.0.15",
+	"language": "English (Soft Sub)",
 	"streamType": "HLS",
 	"quality": "1080p",
 	"baseUrl": "https://animekai.to",
 	"searchBaseUrl": "https://animekai.to/browser?keyword=%s",
-	"scriptUrl": "https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/animekaiDub.js",
+	"scriptUrl": "https://raw.githubusercontent.com/haawwkeye/AnimeKai/main/animekaiSodtSub.js",
 	"asyncJS": true,
 	"type": "anime"
 }

@@ -1,11 +1,11 @@
 {
-	"sourceName": "AnimeKai",
+	"sourceName": "AnimeKai (UNIVERSAL)",
 	"iconUrl": "https://raw.githubusercontent.com/50n50/sources/refs/heads/main/animekai/iconalt.png",
 	"author": {
 		"name": "Hawk",
 		"icon": "https://avatars.githubusercontent.com/u/30607615?v=4"
 	},
-	"version": "2.0.14",
+	"version": "2.0.15",
 	"language": "English",
 	"streamType": "HLS",
 	"quality": "1080p",
