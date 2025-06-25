@@ -65,6 +65,8 @@ let decrypt_Mg = undefined;
 let DoneEncryptionSetup = false;
 
 const baseUrl = "https://animekai.to";
+const KAICODEX_KEYS =
+	"https://raw.githubusercontent.com/amarullz/kaicodex/refs/heads/main/generated/keys.json";
 
 // THIS IS A TEMP FUNCTION (until I load it via a script instead of hardcoding it!!!)
 // This may not work as I'm going to sleep right after commiting this and then pushing tomorrow to test
@@ -458,7 +460,7 @@ async function loadKaiCodex() {
 
 	try {
 		const res = await fetchv3(
-			"https://raw.githubusercontent.com/amarullz/kaicodex/main/generated/gen/keys.json"
+			KAICODEX_KEYS
 			// {
 			// 	DisableDebug: true,
 			// }
